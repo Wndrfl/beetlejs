@@ -5,30 +5,30 @@
 * 	false
 * 
 * @provides
-* 	WR.events
+* 	BBB.events
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.array
+* 	BBB.scaffold
+* 	BBB.array
 */
 
-WR.extend('events',{
+BBB.extend('events',{
 	
 	clear:function(eventName) {
-		var subscriptions = WR.events.subscriptions()[eventName];
+		var subscriptions = BBB.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
-			WR.array.forEach(subscriptions,function(subscription,key){
+			BBB.array.forEach(subscriptions,function(subscription,key){
 				subscriptions[key] = null;
 			});
 		}
 	},
 	
 	fire:function(eventName,params) {
-		var subscriptions = WR.events.subscriptions()[eventName];
+		var subscriptions = BBB.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
-			WR.array.forEach(subscriptions,function(cb){
+			BBB.array.forEach(subscriptions,function(cb){
 				if(typeof cb == "function") {
 					cb(params);
 				}
@@ -37,14 +37,14 @@ WR.extend('events',{
 	},
 	
 	subscriptions:function() {
-		if(!WR.events.subscribers) {
-			WR.events.subscribers = []
+		if(!BBB.events.subscribers) {
+			BBB.events.subscribers = []
 		}
-		return WR.events.subscribers;
+		return BBB.events.subscribers;
 	},
 	
 	subscribe:function(eventName,cb) {
-		var subscriptions = WR.events.subscriptions();
+		var subscriptions = BBB.events.subscriptions();
 		
 		if(!subscriptions[eventName]) {
 			subscriptions[eventName] = [];
@@ -53,10 +53,10 @@ WR.extend('events',{
 	},
 	
 	unsubscribe:function(eventName,cbToRemove) {
-		var subscriptions = WR.events.subscriptions()[eventName];
+		var subscriptions = BBB.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
-			WR.array.forEach(subscriptions,function(cb,key) {
+			BBB.array.forEach(subscriptions,function(cb,key) {
 				if(cb == cbToRemove) {
 					subscriptions[key] = null;
 				}

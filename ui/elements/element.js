@@ -5,13 +5,13 @@
 * 	false
 * 
 * @provides
-* 	WR.ui.element
+* 	BBB.ui.element
 * 
 * @requires
-* 	WR.scaffold
+* 	BBB.scaffold
 */
 
-WR.Class('ui.element',
+BBB.Class('ui.element',
 	function(dom) {
 		this.dom = dom;
 	},
@@ -27,7 +27,7 @@ WR.Class('ui.element',
 		
 		setup:function() {
 			if(!this.setupAndValidate()) {
-				WR.log('setup failed');
+				BBB.log('setup failed');
 				return false;
 			}
 		},

@@ -1,17 +1,17 @@
 /**
-* Initialization method for WR scaffolding
+* Initialization method for BBB scaffolding
 * 
 * jQuery
 * 	false
 * 
 * @provides
-* 	WR.init
+* 	BBB.init
 * 
 * @requires
-* 	WR.scaffold
+* 	BBB.scaffold
 */
 
-WR.extend('',{
+BBB.extend('',{
 	
 	init:function(options) {
 	
@@ -19,42 +19,31 @@ WR.extend('',{
 			plugins:false,
 			xd:false
 		}
-		WR.copy(settings,options);
+		BBB.copy(settings,options);
 	
 		// initialize xd
-		if(WR.xd) {
-			WR.xd.init();
-		}
-	
-		// initialize plugins
-		if(WR.plugins) {
-			if(WR.dom.isReady === true) {
-				WR.plugins.init();
-			}else{
-				WR.events.subscribe('dom.ready',function() {
-					WR.plugins.init();
-				});
-			}
+		if(BBB.xd) {
+			BBB.xd.init();
 		}
 	
 		// initialize UI elements
-		if(WR.ui.elements) {
-			if(WR.dom.isReady) {
-				WR.ui.elements.parse();
+		if(BBB.ui.elements) {
+			if(BBB.dom.isReady) {
+				BBB.ui.elements.parse();
 			}else{
-				WR.events.subscribe('dom.ready',function() {
-					WR.ui.elements.parse();
+				BBB.events.subscribe('dom.ready',function() {
+					BBB.ui.elements.parse();
 				});
 			}
 		}
 	
 		// initialize form items
-		if(WR.ui.forms) {
-			if(WR.dom.isReady === true) {
-				WR.ui.forms.parse();
+		if(BBB.ui.forms) {
+			if(BBB.dom.isReady === true) {
+				BBB.ui.forms.parse();
 			}else{
-				WR.events.subscribe('dom.ready',function() {
-					WR.ui.forms.parse();
+				BBB.events.subscribe('dom.ready',function() {
+					BBB.ui.forms.parse();
 				});
 			}
 		}

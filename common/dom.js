@@ -2,15 +2,15 @@
 * Provides common dom manipulation
 * 
 * @provides
-* 	WR.dom
+* 	BBB.dom
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.array
-* 	WR.events
+* 	BBB.scaffold
+* 	BBB.array
+* 	BBB.events
 */
 
-WR.extend('dom',{
+BBB.extend('dom',{
 	
 	isReady:false,
 	
@@ -27,17 +27,17 @@ WR.extend('dom',{
 	
 	addCssRules:function(styles, names) {
 		
-	    if(!WR.dom._cssRules) {
-			WR.dom._cssRules = {};
+	    if(!BBB.dom._cssRules) {
+			BBB.dom._cssRules = {};
 		}
 
 		// note, we potentially re-include CSS if it comes with other CSS that we
 		// have previously not included.
 		var allIncluded = true;
-		WR.array.forEach(names, function(id) {
-			if(!(id in WR.dom._cssRules)) {
+		BBB.array.forEach(names, function(id) {
+			if(!(id in BBB.dom._cssRules)) {
 				allIncluded = false;
-				WR.dom._cssRules[id] = true;
+				BBB.dom._cssRules[id] = true;
 			}
 		});
 
@@ -46,7 +46,7 @@ WR.extend('dom',{
 		}
 
 		//#JSCOVERAGE_IF
-		if(WR.dom.getBrowserType() != 'ie') {
+		if(BBB.dom.getBrowserType() != 'ie') {
 			var style = document.createElement('style');
 			style.type = 'text/css';
 			style.textContent = styles;
@@ -69,7 +69,7 @@ WR.extend('dom',{
 		var oldClasses = dom.className.split(' ');
 		
 		var inClass = false;
-		WR.array.forEach(oldClasses,function(cn) {
+		BBB.array.forEach(oldClasses,function(cn) {
 			if(cn == className) {
 				inClass = true;
 			}
@@ -105,7 +105,7 @@ WR.extend('dom',{
 	},
 	
 	getBrowserType:function() {
-		if(!WR.dom._browserType) {
+		if(!BBB.dom._browserType) {
 	      var
 	        userAgent = window.navigator.userAgent.toLowerCase(),
 	        // list of known browser. NOTE: the order is important
@@ -113,12 +113,12 @@ WR.extend('dom',{
 	        names = ['ie', 'mozilla', 'safari', 'mozilla'];
 	      for (var i = 0; i < keys.length; i++) {
 	        if (userAgent.indexOf(keys[i]) >= 0) {
-	          WR.dom._browserType = names[i];
+	          BBB.dom._browserType = names[i];
 	          break;
 	        }
 	      }
 	    }
-	    return WR.dom._browserType;
+	    return BBB.dom._browserType;
 	},//-- getBrowserType
 	
 	
@@ -206,7 +206,7 @@ WR.extend('dom',{
 		if(typeof tagName == "string") {
 			var tagParts = tagName.split(',');
 			var els = new Array();
-			WR.array.forEach(tagParts,function(tag) {
+			BBB.array.forEach(tagParts,function(tag) {
 				var found = dom.getElementsByTagName(tag);
 				for(i=0;i<found.length;i++) {
 					els.push(found[i]);
@@ -248,13 +248,13 @@ WR.extend('dom',{
 	},
 	
 	remove:function(dom) {
-		WR.dom.replace(dom,null);
+		BBB.dom.replace(dom,null);
 	},
 	
 	removeClass:function(dom,className) {
 		var oldClasses = dom.className.split(' ');
 		
-		WR.array.forEach(oldClasses,function(cn,key) {
+		BBB.array.forEach(oldClasses,function(cn,key) {
 			if(cn == className) {
 				delete oldClasses[key];
 			}
@@ -288,14 +288,14 @@ WR.extend('dom',{
 (function() {
 	
 	function domIsReady() {
-		WR.dom.isReady = true;
-		WR.events.fire('dom.ready');
-		WR.events.clear('dom.ready');
+		BBB.dom.isReady = true;
+		BBB.events.fire('dom.ready');
+		BBB.events.clear('dom.ready');
 		
 	}
 	
 	// check to see if already ready
-	if(WR.dom.isReady == true || document.readyState == 'complete') {
+	if(BBB.dom.isReady == true || document.readyState == 'complete') {
 		domIsReady();
 		return;
 	}
@@ -310,7 +310,7 @@ WR.extend('dom',{
 	// Bad citizens.
   	// If IE is used and page is not in a frame, continuously check to see if
   	// the document is ready
-  	if(WR.dom.getBrowserType() == 'ie' && window === top) {
+  	if(BBB.dom.getBrowserType() == 'ie' && window === top) {
     	(function() {
       		try {
         		// If IE is used, use the trick by Diego Perini

@@ -5,13 +5,13 @@
 * 	false
 * 
 * @provides
-* 	WR.util
+* 	BBB.util
 * 
 * @requires
-* 	WR.scaffold
+* 	BBB.scaffold
 */
 
-WR.extend('util',{
+BBB.extend('util',{
 	settings:{},///--- settings
 	
 	init:function(){},///--- init

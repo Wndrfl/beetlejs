@@ -1,4 +1,4 @@
-WR.extend('effects',{
+BBB.extend('effects',{
 	speeds:{
 		fast:700,
 		slow:1000
@@ -7,9 +7,9 @@ WR.extend('effects',{
 	translateSpeed:function(speed) {
 		if(typeof speed == 'string') {
 		
-			for(var key in WR.effects.speeds) {
+			for(var key in BBB.effects.speeds) {
 				if(key == speed) {
-					return WR.effects.speeds[key];
+					return BBB.effects.speeds[key];
 				}
 			}
 			

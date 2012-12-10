@@ -5,21 +5,21 @@
 * 	false
 * 
 * @provides
-* 	WR.ui.forms
+* 	BBB.ui.forms
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.dom
-* 	WR.array
+* 	BBB.scaffold
+* 	BBB.dom
+* 	BBB.array
 */
-WR.extend('ui.forms',{
+BBB.extend('ui.forms',{
 	parse:function() {
-		var els = WR.dom.getElementsByClassName('form_item');
-		WR.array.forEach(els,function(el) {
-			if(WR.dom.hasClass(el,'inline')) {
-				var item = new WR.ui.forms.item.inline(el);
+		var els = BBB.dom.getElementsByClassName('form_item');
+		BBB.array.forEach(els,function(el) {
+			if(BBB.dom.hasClass(el,'inline')) {
+				var item = new BBB.ui.forms.item.inline(el);
 			}else{
-				var item = new WR.ui.forms.item(el);
+				var item = new BBB.ui.forms.item(el);
 			}
 			
 			if(item.setup) {

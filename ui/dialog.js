@@ -6,46 +6,46 @@
 * 	true
 * 
 * @provides
-* 	WR.ui.dialog
+* 	BBB.ui.dialog
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.ui.mask
-* 	WR.xd
+* 	BBB.scaffold
+* 	BBB.ui.mask
+* 	BBB.xd
 * 	
 */
 
-WR.extend('ui.dialog',{
+BBB.extend('ui.dialog',{
 	
 	dialogIsOpen:false,
 	dialogPopup:null,
 	dialogType:'auto',
 	
 	close:function(){
-		if(WR.ui.dialog.dialogIsOpen !== true) {
+		if(BBB.ui.dialog.dialogIsOpen !== true) {
 			return;
 		}
 		
-		if(WR.ui.dialog.dialogPopup) {
-			WR.ui.dialog.dialogPopup.close();
-			WR.ui.dialog.dialogIsOpen = false;
+		if(BBB.ui.dialog.dialogPopup) {
+			BBB.ui.dialog.dialogPopup.close();
+			BBB.ui.dialog.dialogIsOpen = false;
 		}else{
-			WR.ui.mask.hide(function() {
+			BBB.ui.mask.hide(function() {
 				$('#ui_popup_targ').remove();
-				WR.ui.dialog.dialogIsOpen = false;
+				BBB.ui.dialog.dialogIsOpen = false;
 			});
 		}
 	},////---- close
 	
 	closeSelf:function() {
-		parent.WR.ui.dialog.close();
+		parent.BBB.ui.dialog.close();
 	},////---- closeSelf
 	
 	open:function(type,url,w,h,cb){
 		
-		if(WR.ui.dialog.dialogIsOpen === false) {
+		if(BBB.ui.dialog.dialogIsOpen === false) {
 			if(!type) { var type = 'auto';}
-			if(type === 'auto') { type = (WR.util.parentIsLocal()) ? "iframe" : "popup";}
+			if(type === 'auto') { type = (BBB.util.parentIsLocal()) ? "iframe" : "popup";}
 			if(!w) { var w = 400;}
 			if(!h) { var h = 300;}
 			var win_w = document.documentElement.clientWidth;
@@ -55,13 +55,13 @@ WR.extend('ui.dialog',{
 
 			// popup
 			if(type == 'popup') {
-				WR.ui.dialog.dialogPopup = window.open(url,WR.ui.dialog.dialogPopupName, 'height='+h+',width='+w+',left='+left+',top='+top+',resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
-				WR.xd.addWindow(WR.ui.dialog.dialogPopupName,WR.ui.dialog.dialogPopup);
-				WR.ui.dialog.dialogIsOpen = true;
+				BBB.ui.dialog.dialogPopup = window.open(url,BBB.ui.dialog.dialogPopupName, 'height='+h+',width='+w+',left='+left+',top='+top+',resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+				BBB.xd.addWindow(BBB.ui.dialog.dialogPopupName,BBB.ui.dialog.dialogPopup);
+				BBB.ui.dialog.dialogIsOpen = true;
 				return;
 			}
 			
-			WR.ui.mask.show(function() {
+			BBB.ui.mask.show(function() {
 				$('body').append('<div id="ui_popup_targ"><div id="ui_popup_loading">Loading...</div></div>');
 				$('#ui_popup_targ').append('<div id="ui_popup_close"></div>');
 				$('#ui_popup_targ').css('width',w);
@@ -72,23 +72,23 @@ WR.extend('ui.dialog',{
 				// iframe
 				if(type == 'iframe') {
 					$('#ui_popup_targ').html('<iframe id="ui_popup_iframe" src="'+url+'" width="100%" height="100%" scrolling="no"></iframe>');
-					WR.xd.addWindow('ui_popup_iframe',$('#ui_popup_iframe'));
-					WR.ui.dialog.dialogType='iframe';
+					BBB.xd.addWindow('ui_popup_iframe',$('#ui_popup_iframe'));
+					BBB.ui.dialog.dialogType='iframe';
 
 				// ajax
 				}else if(type == 'ajax') {
 					$('#ui_popup_targ').css('background','transparent').css('border','0').load(url);
-					WR.ui.dialog.dialogType='ajax';
+					BBB.ui.dialog.dialogType='ajax';
 				}
 				
 				$('#ui_popup_targ').fadeIn('fast');
 				
 				// setup fade out
 				$('#ui_popup_close,#ui_popup_bg').click(function() {
-					WR.ui.dialog.close();
+					BBB.ui.dialog.close();
 				});
 
-				WR.ui.dialog.dialogIsOpen = true;
+				BBB.ui.dialog.dialogIsOpen = true;
 
 				if(cb) {
 					cb();

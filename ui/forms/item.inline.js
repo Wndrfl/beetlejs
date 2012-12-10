@@ -5,15 +5,15 @@
 * 	true
 * 
 * @provides
-* 	WR.ui.forms.item.inline
+* 	BBB.ui.forms.item.inline
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.ui.forms.item
-* 	WR.dom
+* 	BBB.scaffold
+* 	BBB.ui.forms.item
+* 	BBB.dom
 */
 
-WR.subclass('ui.forms.item','ui.forms.item.inline',null,
+BBB.subclass('ui.forms.item','ui.forms.item.inline',null,
 {
 	analyzeKeyup:function() {
 		if(this.getInputLength() === 0) {
@@ -37,25 +37,25 @@ WR.subclass('ui.forms.item','ui.forms.item.inline',null,
 	
 	arm:function() {
 		if(this.label) {
-			WR.dom.addClass(this.label,'armed');
+			BBB.dom.addClass(this.label,'armed');
 		}
 		this.input.focus();
 	},//////------ arm
 	
 	disarm:function() {
 		if(this.label) {
-			WR.dom.removeClass(this.label,'armed');
+			BBB.dom.removeClass(this.label,'armed');
 		}
 	},//////------ disarm
 	
 	hideLabel:function() {
 		if(this.labelIsVisible()) {
-			WR.dom.hide(this.label);
+			BBB.dom.hide(this.label);
 		}
 	},//////------ hideLabel
 	
 	labelIsVisible:function() {
-		if(this.label && WR.dom.isVisible(this.label)) {
+		if(this.label && BBB.dom.isVisible(this.label)) {
 			return true;
 		}
 		return false;

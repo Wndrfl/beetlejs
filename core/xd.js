@@ -5,15 +5,15 @@
 * 	false
 * 
 * @provides
-* 	WR.xd
+* 	BBB.xd
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.qs
-* 	WR.events
+* 	BBB.scaffold
+* 	BBB.qs
+* 	BBB.events
 */
 
-WR.extend('xd',{
+BBB.extend('xd',{
 	
 	exposedFunctions:{},///--- exposedFunctions
 	exposedFunctionsTmp:{},///--- exposedFunctionsTmp
@@ -26,31 +26,31 @@ WR.extend('xd',{
 	
 	init:function() {
 		if(window !== top) {
-			WR.xd.addWindow("parent",window.parent,'*');
+			BBB.xd.addWindow("parent",window.parent,'*');
 		}
 		
-		WR.xd.getXdmMethod();
+		BBB.xd.getXdmMethod();
 		
 		// set up listener
-		if(WR.xd.xdmMethod === 'postmessage') {
+		if(BBB.xd.xdmMethod === 'postmessage') {
 			if(typeof window.addEventListener !== 'undefined') { 
 				window.addEventListener('message',function(e) {
-					WR.xd.onPostMessageReceived(e);
+					BBB.xd.onPostMessageReceived(e);
 				},false); 
 			}else if(typeof window.attachEvent !== 'undefined') { 
 			  	window.attachEvent('onmessage',function(e) {
-					WR.xd.onPostMessageReceived(e);
+					BBB.xd.onPostMessageReceived(e);
 				}); 
 			}
 		}
 		
-		// tell WR that xd is setup
-		WR.events.fire('xd.ready');
+		// tell BBB that xd is setup
+		BBB.events.fire('xd.ready');
 		
 	},///--- init
 	
 	addWindow:function(windowName,object,url) {
-		WR.xd.windows[windowName] = {
+		BBB.xd.windows[windowName] = {
 			cb:function(){},
 			object:object,
 			url:url
@@ -58,17 +58,17 @@ WR.extend('xd',{
 	},///--- addWindow
 	
 	callExposedFunction:function(name,params) {
-		var fn = WR.xd.exposedFunctions[name];
+		var fn = BBB.xd.exposedFunctions[name];
 		return fn(params);
 	},///--- callExposedFunction
 	
 	exposeFunction:function(name,fn,tmp) {
 		if(typeof fn === "function") {
-			name = (name) ? name : WR.util.guid();
-			WR.xd.exposedFunctions[name] = fn;
+			name = (name) ? name : BBB.util.guid();
+			BBB.xd.exposedFunctions[name] = fn;
 			
 			if(tmp) {
-				WR.xd.exposedFunctionsTmp[name] = true;
+				BBB.xd.exposedFunctionsTmp[name] = true;
 			}
 			
 			return name;
@@ -79,28 +79,28 @@ WR.extend('xd',{
 		
 		// TODO: listen for fragment
 		
-		WR.xd.fragmentListenerTimer = setTimeout(WR.xd.fragmentListener,WR.xd.fragmentListenerInterval);
+		BBB.xd.fragmentListenerTimer = setTimeout(BBB.xd.fragmentListener,BBB.xd.fragmentListenerInterval);
 	},///--- fragmentListener
 	
 	functionIsExposed:function(name) {
-		if(typeof WR.xd.exposedFunctions[name] === "function") {
+		if(typeof BBB.xd.exposedFunctions[name] === "function") {
 			return true;
 		}
 		return false;
 	},///--- functionIsExposed
 	
 	getWindow:function(windowName) {
-		if(WR.xd.hasWindow(windowName)) {
-			return WR.xd.windows[windowName];
+		if(BBB.xd.hasWindow(windowName)) {
+			return BBB.xd.windows[windowName];
 		}
 	},///--- getWindow
 	
 	getXdmMethod:function() {
 		if(window.postMessage) {
-			WR.xd.xdmMethod = 'postmessage';
+			BBB.xd.xdmMethod = 'postmessage';
 			return;
 		}
-		WR.xd.xdmMethod = 'fragment';
+		BBB.xd.xdmMethod = 'fragment';
 	},///--- getXdmMethod
 	
 	getUrlVars:function(url) {
@@ -115,26 +115,26 @@ WR.extend('xd',{
 	},///--- getUrlVars
 	
 	hasWindow:function(windowName) {
-		return (typeof WR.xd.windows[windowName] !== "undefined") ? true : false;
+		return (typeof BBB.xd.windows[windowName] !== "undefined") ? true : false;
 	},///--- hasWindow
 	
 	onPostMessageReceived:function(message) {
-		if(WR.xd.originIsAllowed(message.origin)) {
-			var data = WR.qs.decode(message.data);
-			if(data.method && WR.xd.functionIsExposed(data.method)) {
+		if(BBB.xd.originIsAllowed(message.origin)) {
+			var data = BBB.qs.decode(message.data);
+			if(data.method && BBB.xd.functionIsExposed(data.method)) {
 				
 					console.log(message);
-				var cb = WR.xd.exposedFunctions[data.method];
-				if(WR.xd.exposedFunctionsTmp[data.method]) {
-					delete WR.xd.exposedFunctions[data.method],
-						WR.xd.exposedFunctionsTmp[data.method];
+				var cb = BBB.xd.exposedFunctions[data.method];
+				if(BBB.xd.exposedFunctionsTmp[data.method]) {
+					delete BBB.xd.exposedFunctions[data.method],
+						BBB.xd.exposedFunctionsTmp[data.method];
 				}
 				
 				var cbResponse = cb(data);
 				
 				if(data.cb) {
 					var sendBack = {'response':cbResponse}
-					WR.xd.send('parent',data.cb,sendBack);
+					BBB.xd.send('parent',data.cb,sendBack);
 				}
 			}
 		}
@@ -142,14 +142,14 @@ WR.extend('xd',{
 	
 	
 	originIsAllowed:function(origin) {
-		if(WR.xd.originBlacklist.length > 0) {
-			if(origin in WR.xd.originBlacklist) {
+		if(BBB.xd.originBlacklist.length > 0) {
+			if(origin in BBB.xd.originBlacklist) {
 				return false;
 			}
 		}
 		
-		if(WR.xd.originWhitelist.length > 0) {
-			if(origin in WR.xd.originWhitelist) {
+		if(BBB.xd.originWhitelist.length > 0) {
+			if(origin in BBB.xd.originWhitelist) {
 				return true;
 			}
 			return false;
@@ -161,15 +161,15 @@ WR.extend('xd',{
 
 	
 	send:function(windowName,method,params,cb) {
-		if(!WR.xd.hasWindow(windowName)) {
+		if(!BBB.xd.hasWindow(windowName)) {
 			return false;
 		}
 		
-		var targ = WR.xd.windows[windowName];
+		var targ = BBB.xd.windows[windowName];
 		
 		// add a tmp cb if necessary
 		if(cb) {
-			var callBackName = WR.xd.addExposedFunction(null,cb,true);
+			var callBackName = BBB.xd.addExposedFunction(null,cb,true);
 		}
 		
 		// setup object payload
@@ -181,13 +181,13 @@ WR.extend('xd',{
 		}
 		
 		// send message according to settings
-		if(WR.xd.xdmMethod == "postmessage") {
+		if(BBB.xd.xdmMethod == "postmessage") {
 			targ.object.postMessage(
-				WR.qs.encode(obj),
+				BBB.qs.encode(obj),
 				targ.url
 			);
 			
-		}else if(WR.xd.xdmMethod == "fragment") {
+		}else if(BBB.xd.xdmMethod == "fragment") {
 			
 			// TODO: send via frag id
 			
@@ -196,20 +196,20 @@ WR.extend('xd',{
 	},///--- send
 	
 	registerFragmentCallback:function(windowName) {
-		if(WR.xd.hasWindow(windowName)) {
+		if(BBB.xd.hasWindow(windowName)) {
 			
 			// TODO: need to check for redundancies
 			
-			WR.xd.waitingOnFragment.push(windowName);
-			WR.xd.toggleFragmentListener(true);
+			BBB.xd.waitingOnFragment.push(windowName);
+			BBB.xd.toggleFragmentListener(true);
 		}
 	},///--- registerFragmentCallback
 	
 	toggleFragmentListener:function(toggle) {
 		if(toggle === true) {
-			WR.xd.fragmentListenerTimer = setTimeout(WR.xd.fragmentListener(),WR.xd.fragmentListenerInterval);
+			BBB.xd.fragmentListenerTimer = setTimeout(BBB.xd.fragmentListener(),BBB.xd.fragmentListenerInterval);
 		}else if(toggle === false) {
-			WR.xd.fragmentListenerTimer = clearTimeout();
+			BBB.xd.fragmentListenerTimer = clearTimeout();
 		}
 	}///--- toggleFragmentListener
 });

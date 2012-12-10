@@ -5,19 +5,19 @@
 * 	false
 * 
 * @provides
-* 	WR.ui.elements
+* 	BBB.ui.elements
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.array
+* 	BBB.scaffold
+* 	BBB.array
 */
 
-WR.extend('ui.elements',{
+BBB.extend('ui.elements',{
 
 	parse:function() {
-		WR.array.forEach(WR.ui.elements.elementTypes,function(type) {
-			var els = WR.dom.getElementsByClassName(type.publicName);
-			var obj = WR.create(type.className);
+		BBB.array.forEach(BBB.ui.elements.elementTypes,function(type) {
+			var els = BBB.dom.getElementsByClassName(type.publicName);
+			var obj = BBB.create(type.className);
 
 			for(i=0;i<els.length;i++) {
 				var element = new obj(els[i]);

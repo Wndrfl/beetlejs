@@ -2,13 +2,13 @@
 * Provides custom array functions
 * 
 * @provides 
-* 	WR.array
+* 	BBB.array
 * 
 * @requires
-* 	WR.scaffold
+* 	BBB.scaffold
 */
 
-WR.extend('array',{
+BBB.extend('array',{
 	
 	forEach:function(item,fn,proto) {
 		if(!item) {

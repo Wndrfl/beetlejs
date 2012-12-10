@@ -2,11 +2,11 @@
 * Beetlejuice, Beetlejuice, Beetlejuice...
 */
 (function($) {
-	if(typeof window.WR === "undefined") {
-		var WR = window.WR = {
+	if(typeof window.BBB === "undefined") {
+		var BBB = window.BBB = {
 			
 			domains:{
-				www:'http://www.walletrocket.dev/'
+				www:'http://www.beetlejuice.dev/'
 			},
 			
 			_settings:{},
@@ -18,24 +18,24 @@
 			},
 			
 			Class:function(name,constructor,proto) {
-				if(!WR.CLASSES) {
-					WR.CLASSES = {}
+				if(!BBB.CLASSES) {
+					BBB.CLASSES = {}
 				}
 				
-				if(WR.CLASSES[name]) {
-					return WR.CLASSES[name];
+				if(BBB.CLASSES[name]) {
+					return BBB.CLASSES[name];
 				}
 				
 				var obj = constructor || function() {};
 				obj.prototype = proto;
 				obj.prototype.bind = function(fn) {
-					WR.bind(this,fn);
+					BBB.bind(this,fn);
 				}
 				
-				WR.create(name,obj);
-				WR.CLASSES[name] = obj;
+				BBB.create(name,obj);
+				BBB.CLASSES[name] = obj;
 				
-				return WR.CLASSES[name];
+				return BBB.CLASSES[name];
 			},
 			
 			copy:function(target,source,overwrite) {
@@ -49,7 +49,7 @@
 			
 			create:function(target,value) {
 				
-				var node = window.WR;
+				var node = window.BBB;
 				value = (value) ? value : {};
 				
 				var tp = target ? target.split('.') : [];
@@ -76,8 +76,8 @@
 			
 			extend:function(target,source) {
 				var targetNode = (typeof target === "string") 
-						? WR.create(target) : target;
-				WR.copy(targetNode,source);
+						? BBB.create(target) : target;
+				BBB.copy(targetNode,source);
 			},
 
 			
@@ -90,28 +90,28 @@
 
 			importSettings:function(settings) {
 				for(var key in settings) {
-					WR._settings[key] = settings[key];
+					BBB._settings[key] = settings[key];
 				}
 			},
 			
 			settings:function(key) {
-				return (WR._settings[key]) ? WR._settings[key] : false;
+				return (BBB._settings[key]) ? BBB._settings[key] : false;
 			},
 			
 			subclass:function(parentName,name,constructor,proto) {
-				if(WR.CLASSES[name]) {
-					return WR.CLASSES[name];
+				if(BBB.CLASSES[name]) {
+					return BBB.CLASSES[name];
 				}
 				
-				if(!WR.CLASSES) {
-					WR.CLASSES = {}
+				if(!BBB.CLASSES) {
+					BBB.CLASSES = {}
 				}
 				
 				// copy parent methods into proto (don't overwrite)
-				var parentClass = WR.create(parentName);
-				WR.copy(proto,parentClass.prototype);
+				var parentClass = BBB.create(parentName);
+				BBB.copy(proto,parentClass.prototype);
 				
-				return WR.Class(name,
+				return BBB.Class(name,
 					constructor ? constructor : function() {
 				        if (parentClass.apply) {
 				          parentClass.apply(this, arguments);
@@ -123,7 +123,7 @@
 		
 		// check for jQuery
 		if(typeof $ === "undefined" || $ !== window.jQuery) {
-			WR.log('Please include jQuery.');
+			BBB.log('Please include jQuery.');
 			
 		// double check jQuery version (must be above v. 1.3)
 		}else{
@@ -131,7 +131,7 @@
 
 			if(!jQuery.isVersion('1.3', '<')){
 				// load fresh copy of jquery
-				WR.log('Please include a newer version of jQuery');
+				BBB.log('Please include a newer version of jQuery');
 			}
 		}
 	}

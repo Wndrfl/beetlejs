@@ -5,13 +5,13 @@
 * 	false
 * 
 * @provides
-* 	WR.content
+* 	BBB.content
 * 
 * @requires
-* 	WR.scaffold
+* 	BBB.scaffold
 */
 
-WR.extend('content',{
+BBB.extend('content',{
 	
 	append:function(parent,content) {
 		if(typeof content === "string") {
@@ -25,7 +25,7 @@ WR.extend('content',{
 	
 	insertIframe:function(parent,params) {
 		if(!parent) {
-			WR.log('No parent was provided for the iframe.');
+			BBB.log('No parent was provided for the iframe.');
 		}
 		
 		// if ie
@@ -43,7 +43,7 @@ WR.extend('content',{
 					" frameborder='0'" +
 					" allowtransparency='true'></iframe>";
 	
-			WR.content.append(parent,i);
+			BBB.content.append(parent,i);
 		
 		// non ie	
 		}else{
@@ -66,7 +66,7 @@ WR.extend('content',{
 			i.style.border = "0";
 			i.style.overflow = "hidden";
 
-			WR.content.append(parent,i);
+			BBB.content.append(parent,i);
 			
 			i.setAttribute("src",params.src);
 		}

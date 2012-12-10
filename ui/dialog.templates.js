@@ -5,18 +5,18 @@
 * 	false
 * 
 * @provides
-* 	WR.ui.dialog.templates
+* 	BBB.ui.dialog.templates
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.ui.dialog
-* 	WR.communicator
+* 	BBB.scaffold
+* 	BBB.ui.dialog
+* 	BBB.communicator
 */
 
-WR.extend('ui.dialog.templates',{
+BBB.extend('ui.dialog.templates',{
 		
 	auth:function(params,cb) {
-		WR.communicator.setCatchCallbackFunction(cb);
+		BBB.communicator.setCatchCallbackFunction(cb);
 		
 		var p = new Array();
 		if(params) {
@@ -27,11 +27,11 @@ WR.extend('ui.dialog.templates',{
 		
 		var uri = (p.length > 0) ? "?"+p.join('&') : "";
 		
-		WR.ui.dialog.open("auto","/ui/auth"+uri,500,500);
+		BBB.ui.dialog.open("auto","/ui/auth"+uri,500,500);
 	},
 	
 	pluginAuth:function(params,cb) {
-		WR.communicator.setCatchCallbackFunction(cb);
+		BBB.communicator.setCatchCallbackFunction(cb);
 		
 		var p = new Array();
 		if(params) {
@@ -41,6 +41,6 @@ WR.extend('ui.dialog.templates',{
 		
 		var uri = (p.length > 0) ? "?"+p.join('&') : "";
 		
-		WR.ui.dialog.open("auto","/plugins/auth/social"+uri,500,500);
+		BBB.ui.dialog.open("auto","/plugins/auth/social"+uri,500,500);
 	}
 });

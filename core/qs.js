@@ -5,14 +5,14 @@
 * 	false
 * 
 * @provides
-* 	WR.qs
+* 	BBB.qs
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.array
+* 	BBB.scaffold
+* 	BBB.array
 */
 
-WR.extend('qs',{
+BBB.extend('qs',{
 	
 	decode:function(str) {
 		var
@@ -42,7 +42,7 @@ WR.extend('qs',{
 	    encode = encode === false ? function(s) { return s; } : encodeURIComponent;
 
 	    var pairs = [];
-	    WR.array.forEach(params,function(val, key) {
+	    BBB.array.forEach(params,function(val, key) {
 	      if(val !== null && typeof val != 'undefined') {
 	        pairs.push(encode(key) + '=' + encode(val));
 	      }

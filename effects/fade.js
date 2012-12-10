@@ -1,27 +1,27 @@
-WR.extend('effects.fade',{
+BBB.extend('effects.fade',{
 	
 	tweenGrains:.05,
 	
 	fadeIn:function(dom,time,cb) {
-		time = WR.effects.translateSpeed(time);
-		var currentOpacity = WR.effects.fade.getCurrentOpacity(dom);
-		var speed = WR.effects.fade.tweenSpeed(0,currentOpacity,time);
+		time = BBB.effects.translateSpeed(time);
+		var currentOpacity = BBB.effects.fade.getCurrentOpacity(dom);
+		var speed = BBB.effects.fade.tweenSpeed(0,currentOpacity,time);
 		dom.timer = setTimeout(function() {
-			WR.effects.fade.tween(dom,currentOpacity,100,dom.timer,speed,cb);
+			BBB.effects.fade.tween(dom,currentOpacity,100,dom.timer,speed,cb);
 		},0);
 	},
 	
 	fadeOut:function(dom,time,cb) {
-		time = WR.effects.translateSpeed(time);
-		var currentOpacity = WR.effects.fade.getCurrentOpacity(dom);
-		var speed = WR.effects.fade.tweenSpeed(0,currentOpacity,time);
+		time = BBB.effects.translateSpeed(time);
+		var currentOpacity = BBB.effects.fade.getCurrentOpacity(dom);
+		var speed = BBB.effects.fade.tweenSpeed(0,currentOpacity,time);
 		dom.timer = setTimeout(function() {
-			WR.effects.fade.tween(dom,currentOpacity,0,dom.timer,speed,cb);
+			BBB.effects.fade.tween(dom,currentOpacity,0,dom.timer,speed,cb);
 		},0);
 	},
 	
 	getCurrentOpacity:function(dom) {
-		var defaultOpacity = (WR.dom.isVisible(dom)) ? 100 : 0;
+		var defaultOpacity = (BBB.dom.isVisible(dom)) ? 100 : 0;
 		return dom.style.opacity ? parseFloat(dom.style.opacity) * 100 : defaultOpacity;
 	},
 	
@@ -33,14 +33,14 @@ WR.extend('effects.fade',{
 			}
            }else{
 			var flag = (alpha < target) ? 1 : -1;
-               var value = Math.round(alpha + ((target - alpha) * WR.effects.fade.tweenGrains)) + (1 * flag);
+               var value = Math.round(alpha + ((target - alpha) * BBB.effects.fade.tweenGrains)) + (1 * flag);
                dom.style.opacity = value / 100;
                dom.style.filter = 'alpha(opacity=' + value + ')';
                alpha = value;
 
 			if(value != target) {
 				timer = setTimeout(function() {
-					WR.effects.fade.tween(dom,alpha,target,timer,speed,cb);
+					BBB.effects.fade.tween(dom,alpha,target,timer,speed,cb);
 				},speed);
 			}
            }

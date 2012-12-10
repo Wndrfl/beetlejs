@@ -5,24 +5,24 @@
 * 	true
 * 
 * @provides
-* 	WR.ui.forms.item
+* 	BBB.ui.forms.item
 * 
 * @requires
-* 	WR.scaffold
-* 	WR.dom
-* 	WR.brains.validator
-* 	WR.util
+* 	BBB.scaffold
+* 	BBB.dom
+* 	BBB.brains.validator
+* 	BBB.util
 */
 
-WR.Class('ui.forms.item',
+BBB.Class('ui.forms.item',
 
 function(dom) {
 	var dom = this.dom = dom;
 	
-	if(label = WR.dom.getElementsByTagName('label',dom)) { 
+	if(label = BBB.dom.getElementsByTagName('label',dom)) { 
 		this.label = label[0];
 	}
-	if(input = WR.dom.getElementsByTagName('input,textarea',dom)) { 
+	if(input = BBB.dom.getElementsByTagName('input,textarea',dom)) { 
 		this.input = input[0];
 		this.inputLength = this.getInputLength();
 		this.bindInteractions();
@@ -201,10 +201,10 @@ function(dom) {
 		this.showLoading("Checking url...");
 
 		this.setInteractionTimer(function() {
-			if(!WR.brains.validator.validCustomUrl(item.input.value)) {
+			if(!BBB.brains.validator.validCustomUrl(item.input.value)) {
 				item.showError("Please only use letters or numbers here...");
 			}else{
-				WR.brains.validator.urlIsAvailable(item.input.value,function(status,msg) {
+				BBB.brains.validator.urlIsAvailable(item.input.value,function(status,msg) {
 					if(!status) {	
 						item.showError("Drats! This url is already in use.");
 					}else{
@@ -222,10 +222,10 @@ function(dom) {
 		this.setInteractionTimer(function() {
 			if(item.getInputLength() === 0) {
 				item.showError("Whoops! Don't forget your email...");
-			}else if(!WR.brains.validator.validEmailAddress(item.input.value)) {
+			}else if(!BBB.brains.validator.validEmailAddress(item.input.value)) {
 				item.showError("Hmm, this email doesn't look valid...");
 			}else{
-				WR.brains.validator.emailIsAvailable(item.input.value,function(status,msg) {
+				BBB.brains.validator.emailIsAvailable(item.input.value,function(status,msg) {
 					if(!status) {	
 						item.showError("Drats! This email is already in use. <a href='/signin'>You can sign in here.</a>");
 					}else{
@@ -237,7 +237,7 @@ function(dom) {
 	},//////------ validEmail
 		
 	willBeEmpty:function(event) {
-		keyCode = WR.util.keyboard.getKeycode(event);
+		keyCode = BBB.util.keyboard.getKeycode(event);
 		if((keyCode == 8 || keyCode == 46) && this.getInputLength() == 1) {
 			return true;
 		}
