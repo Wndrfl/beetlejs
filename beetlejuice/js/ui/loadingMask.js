@@ -15,7 +15,7 @@
 	BBB.extend('ui.loadingMask',{
 		
 		hide:function(cb) {
-			$('#ui_loading_targ').remove();
+			$('#bbb_loading_targ').remove();
 			BBB.ui.mask.hide(cb);
 		},
 		
@@ -23,7 +23,7 @@
 			var self = this;
 			var t = (text) ? text : 'loading...';
 			BBB.ui.mask.show(function() {
-				$('body').append('<div id="ui_loading_targ"><div id="ui_loading_content">'+t+'</div></div>');
+				$('body').append('<div id="bbb_loading_targ"><div id="bbb_loading_content">'+t+'</div></div>');
 				if(cb) {
 					cb();
 				}

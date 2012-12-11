@@ -30,6 +30,7 @@ $js = array(
 	// UI elements
 	'js/ui/elements/elements.js',
 	'js/ui/elements/element.js',
+	'js/ui/elements/sampleElement.js',
 	
 	// Common
 	'js/common/array.js',

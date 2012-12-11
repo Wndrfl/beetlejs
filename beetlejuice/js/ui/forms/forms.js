@@ -28,7 +28,7 @@ BBB.extend('ui.forms',{
 	parseAll:function() {
 		var self = this;
 		
-		var els = BBB.dom.getElementsByClassName('ui_form_item');
+		var els = BBB.dom.getElementsByClassName('bbb_form_item');
 		BBB.array.forEach(els,function(el) {
 			if(!BBB.array.inArray(els[i],self._formItems)) {
 				if(BBB.dom.hasClass(el,'inline')) {
@@ -45,7 +45,7 @@ BBB.extend('ui.forms',{
 			}
 		});
 		
-		var els = BBB.dom.getElementsByClassName('ui_dropdown');
+		var els = BBB.dom.getElementsByClassName('bbb_dropdown');
 		BBB.array.forEach(els,function(el) {
 			if(!BBB.array.inArray(els[i],self._formItems)) {
 				var item = new BBB.ui.forms.dropdown(el);

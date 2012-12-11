@@ -31,7 +31,7 @@ BBB.extend('ui.dialog',{
 			BBB.ui.dialog.dialogIsOpen = false;
 		}else{
 			BBB.ui.mask.hide(function() {
-				$('#ui_popup_targ').remove();
+				$('#bbb_popup_targ').remove();
 				BBB.ui.dialog.dialogIsOpen = false;
 			});
 		}
@@ -62,29 +62,29 @@ BBB.extend('ui.dialog',{
 			}
 			
 			BBB.ui.mask.show(function() {
-				$('body').append('<div id="ui_popup_targ"><div id="ui_popup_loading">Loading...</div></div>');
-				$('#ui_popup_targ').append('<div id="ui_popup_close"></div>');
-				$('#ui_popup_targ').css('width',w);
-				$('#ui_popup_targ').css('height',h);
-				$('#ui_popup_targ').css('left',left);
-				$('#ui_popup_targ').css('top',top);
+				$('body').append('<div id="bbb_popup_targ"><div id="bbb_popup_loading">Loading...</div></div>');
+				$('#bbb_popup_targ').append('<div id="bbb_popup_close"></div>');
+				$('#bbb_popup_targ').css('width',w);
+				$('#bbb_popup_targ').css('height',h);
+				$('#bbb_popup_targ').css('left',left);
+				$('#bbb_popup_targ').css('top',top);
 				
 				// iframe
 				if(type == 'iframe') {
-					$('#ui_popup_targ').html('<iframe id="ui_popup_iframe" src="'+url+'" width="100%" height="100%" scrolling="no"></iframe>');
-					BBB.xd.addWindow('ui_popup_iframe',$('#ui_popup_iframe'));
+					$('#bbb_popup_targ').html('<iframe id="bbb_popup_iframe" src="'+url+'" width="100%" height="100%" scrolling="no"></iframe>');
+					BBB.xd.addWindow('bbb_popup_iframe',$('#bbb_popup_iframe'));
 					BBB.ui.dialog.dialogType='iframe';
 
 				// ajax
 				}else if(type == 'ajax') {
-					$('#ui_popup_targ').css('background','transparent').css('border','0').load(url);
+					$('#bbb_popup_targ').css('background','transparent').css('border','0').load(url);
 					BBB.ui.dialog.dialogType='ajax';
 				}
 				
-				$('#ui_popup_targ').fadeIn('fast');
+				$('#bbb_popup_targ').fadeIn('fast');
 				
 				// setup fade out
-				$('#ui_popup_close,#ui_popup_bg').click(function() {
+				$('#bbb_popup_close,#bbb_popup_bg').click(function() {
 					BBB.ui.dialog.close();
 				});
 
@@ -100,7 +100,7 @@ BBB.extend('ui.dialog',{
 	
 	resize:function(w,h){
 		
-		var parentTarg = $("#ui_popup_targ", parent.document.body);
+		var parentTarg = $("#bbb_popup_targ", parent.document.body);
 
 		if(w) { 
 			var win_w = parent.document.documentElement.clientWidth;

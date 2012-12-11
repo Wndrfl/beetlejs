@@ -62,10 +62,6 @@ BBB.extend('ui.elements',{
 	},
 	
 	elementTypes:[
-		{publicName:'auth_links_tools',className:'ui.authLinks'},
-		{publicName:'feedback_tab',className:'ui.feedbackTab'},
-		{publicName:'follow_button_active',className:'ui.followButton'},
-		{publicName:'help_link',className:'ui.helpLink'},
-		{publicName:'user_actions',className:'ui.userActions'}
+		{ publicName:'BBB_sample_element', className:'ui.sampleElement'},
 	]
 });
