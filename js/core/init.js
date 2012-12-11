@@ -40,10 +40,10 @@ BBB.extend('',{
 		// initialize form items
 		if(BBB.ui.forms) {
 			if(BBB.dom.isReady === true) {
-				BBB.ui.forms.parse();
+				BBB.ui.forms.parseAll();
 			}else{
 				BBB.events.subscribe('dom.ready',function() {
-					BBB.ui.forms.parse();
+					BBB.ui.forms.parseAll();
 				});
 			}
 		}
