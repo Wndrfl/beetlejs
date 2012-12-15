@@ -1,9 +1,6 @@
 /**
 * Initialization method for BBB scaffolding
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.init
 * 
@@ -13,6 +10,9 @@
 
 BBB.extend('',{
 	
+	/**
+	 * Initializes the entire BBB framework.
+	 **/
 	init:function(options) {
 	
 		var settings = {
@@ -33,17 +33,6 @@ BBB.extend('',{
 			}else{
 				BBB.events.subscribe('dom.ready',function() {
 					BBB.ui.elements.parse();
-				});
-			}
-		}
-	
-		// initialize form items
-		if(BBB.ui.forms) {
-			if(BBB.dom.isReady === true) {
-				BBB.ui.forms.parseAll();
-			}else{
-				BBB.events.subscribe('dom.ready',function() {
-					BBB.ui.forms.parseAll();
 				});
 			}
 		}

@@ -1,9 +1,6 @@
 /**
 * Packages and unpackages querystring messages
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.qs
 * 
@@ -14,6 +11,9 @@
 
 BBB.extend('qs',{
 	
+	/**
+	 * Decode str from url-friendly values.
+	 **/
 	decode:function(str) {
 		var
 		      decode = decodeURIComponent,
@@ -32,12 +32,10 @@ BBB.extend('qs',{
 		    return params;
 	},
 	
+	/**
+	 * Encode string into url-friendly values.
+	 **/
 	encode:function(params,sep,encode) {
-		/*
-		var message = JSON.stringify(obj);
-		return message;
-		*/
-		
 		sep = sep === undefined ? '&' : sep;
 	    encode = encode === false ? function(s) { return s; } : encodeURIComponent;
 

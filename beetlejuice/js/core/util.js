@@ -1,9 +1,6 @@
 /**
 * Common util helper methods
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.util
 * 
@@ -16,10 +13,16 @@ BBB.extend('util',{
 	
 	init:function(){},///--- init
 	
+	/**
+	 * Returns current URL
+	 **/
 	currentUrl:function() {
 		return window.location.href;
 	},///--- currentUrl
 	
+	/**
+	 * Creates a random guid.
+	 **/
 	guid:function() {
 	    var S4 = function() {
 	       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -27,6 +30,9 @@ BBB.extend('util',{
 	    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());			
 	},///--- guid
 	
+	/**
+	 * Provides functions for analyzing keyboard events.
+	 **/
 	keyboard:{
 		
 		getKeycode:function(e) {
@@ -42,18 +48,31 @@ BBB.extend('util',{
 		
 	},///--- keyboard
 	
+	/**
+	 * Determines whether the parent of the current window
+	 * is on the same domain or not.
+	 **/
 	parentIsLocal:function() {
 		return (window.location == window.parent.location);
 	},///--- parentIsLocal
 	
+	/**
+	 * Prints the current page.
+	 **/
 	printPage:function(){
 		window.print();
 	},///--- printPage
 	
+	/**
+	 * Redirects the browser to a supplied URL.
+	 **/
 	redirect:function(url){
 		window.location = url;	
 	},///--- redirect
 	
+	/**
+	 * Refreshes the page.
+	 **/
 	refreshPage:function(){
 		window.location.reload();
 	}///--- refreshPage

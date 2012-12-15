@@ -3,38 +3,26 @@ header("content-type: application/x-javascript");
 
 $js = array(
 	
-	// Scaffold
+	// Scaffold - this must be first
 	'js/core/scaffold.js',
-	'js/core/init.js',
 	
 	// Basic core
+	'js/core/array.js',
 	'js/core/communicator.js',
 	'js/core/content.js',
+	'js/core/dom.js',
 	'js/core/events.js',
+	'js/core/init.js',
 	'js/core/qs.js',
 	'js/core/util.js',
-	'js/core/xd.js',
 	
 	// Brains
 	'js/brains/validator.js',
 	
-	// UI core
-	'js/ui/dialog.js',
-	'js/ui/dialog.templates.js',
-	'js/ui/forms/forms.js',
-	'js/ui/forms/item.js',
-	'js/ui/forms/item.inline.js',
-	'js/ui/loadingMask.js',
-	'js/ui/mask.js',
-	
 	// UI elements
 	'js/ui/elements/elements.js',
 	'js/ui/elements/element.js',
-	'js/ui/elements/alertButton.js',
-	
-	// Common
-	'js/common/array.js',
-	'js/common/dom.js'
+	'js/ui/elements/alertButton.js'
 );
 	
 // all together now
