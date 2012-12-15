@@ -35,7 +35,7 @@ Creating a new element is done by subclassing the BBB.ui.element "class" and add
 Let's walk through the creation of a simple UI Element that will attach to a DOM element and log a message in the console when clicked.
 
 ### 1. Create a file for the new element
-Create a new file in the /beetlejuice/ui/elements folder called 'alertButton.js'.
+Create a new file in the `/beetlejuice/ui/` folder called 'alertButton.js'.
 
 ### 2. Subclass BBB.ui.element
 Inside the new file, tell Beetlejuice (accessible by the namespace BBB) to subclass the generic UI element, and name the subclass "ui.alertButton".
@@ -66,7 +66,7 @@ The 4th and final argument supplied to BBB.subclass() is an object with custom b
 
 Since we are making an element that logs an alert whenever it is clicked, we need to tell the element to monitor itself for any click events and to react accordingly.
 
-To do this, we are going to take advantage of an *optional* method that Beetlejuice looks for and runs (when found) immediatly after successfully constructing the element. This method is called `setupAndValidate()`.
+To do this, we are going to take advantage of an *optional* method that Beetlejuice looks for and runs (when found) immediately after successfully constructing the element. This method is called `setupAndValidate()`.
 
 <pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
 	this.dom = dom;

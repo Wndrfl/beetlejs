@@ -1,9 +1,6 @@
 /**
 * Parent class for all UI elements
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.ui.element
 * 

@@ -1,9 +1,6 @@
 /**
 * Manager for all UI elements
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.ui.elements
 * 
