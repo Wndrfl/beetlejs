@@ -62,6 +62,6 @@ BBB.extend('ui.elements',{
 	},
 	
 	elementTypes:[
-		{ publicName:'BBB_sample_element', className:'ui.sampleElement'},
+		{ publicName:'alertButton', className:'ui.alertButton'},
 	]
 });

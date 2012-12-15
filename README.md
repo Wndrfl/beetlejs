@@ -45,14 +45,20 @@ Inside the new file, tell Beetlejuice (accessible by the namespace BBB) to subcl
 ### 3. Add an optional constructor method
 In line with the concept of "classes", Beetlejuice allows you to supply a function as the third argument, to be run upon instantiation of your new element. This method is __optional__, but let's have our new element print a message to the console upon instantiation.
 
-<pre>BBB.subclass('ui.element','ui.alertButton',function() {
+<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
+	this.dom = dom;
 	console.log('Constructing the alertButton!');
 });</pre>
+
+Let's explain something else that you see happening in the above example. The only argument passed into the construct is `dom`. In this case, `dom` refers to the DOM element itself that Beetlejuice is binding these behaviors to. It is a good practice to save this reference locally (as we do in the example), so that your behaviors can reference it later.
+
+**Note:** If you don't supply a constructor, Beetlejuice will automatically make the DOM element available as `this.dom` in the same way we did above.
 
 ### 4. Add a custom behavior
 The 4th and final argument supplied to BBB.subclass() is an object with custom behaviors (in the forms of methods and variables) that will define how the element exists.
 
-<pre>BBB.subclass('ui.element','ui.alertButton',function() {
+<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
+	this.dom = dom;
 	console.log('Constructing the alertButton!');
 },{
 	// Custom behaviors go here
@@ -62,7 +68,8 @@ Since we are making an element that logs an alert whenever it is clicked, we nee
 
 To do this, we are going to take advantage of an *optional* method that Beetlejuice looks for and runs (when found) immediatly after successfully constructing the element. This method is called `setupAndValidate()`.
 
-<pre>BBB.subclass('ui.element','ui.alertButton',function() {
+<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
+	this.dom = dom;
 	console.log('Constructing the alertButton!');
 },{
 
@@ -102,7 +109,8 @@ We do this because `setupAndValidate()` **MUST** return either `true` or `false`
 ### 5. Let's make this a little more flexible
 It's great that we set up the element to pop the `alert` when clicked, but what if we wanted other events to create the exact same `alert` as well? The old fashioned way would be to do something like below:
 
-<pre>BBB.subclass('ui.element','ui.alertButton',function() {
+<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
+	this.dom = dom;
 	console.log('Constructing the alertButton!');
 },{
 
@@ -123,7 +131,8 @@ It's great that we set up the element to pop the `alert` when clicked, but what 
 
 This could quickly turn into a headache with an element that has anything more than a small about of behaviors. Let's try and refactor a little bit - by putting the logging function in a new custom behavior, we can separate it from it's different listeners, and consolidate our code a little:
 
-<pre>BBB.subclass('ui.element','ui.alertButton',function() {
+<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
+	this.dom = dom;
 	console.log('Constructing the alertButton!');
 },{
 
