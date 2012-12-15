@@ -15,12 +15,23 @@
 
 BBB.extend('communicator',{
 	
+	/**
+	 * Stores a callback function for the
+	 * catchResponse() method.
+	 **/
 	catchCallbackFunction:function(){},///--- catchCallbackFunction
 	
 	settings:{},///--- settings
 	
 	init:function(){},///--- init
 	
+	/**
+	 * Used to catch a response thrown by the other frame.
+	 * 
+	 * Will either treat the response as a function (if it is a function)
+	 * or will pass it to the catchCallbackFunction that was previously
+	 * set.
+	 **/
 	catchResponse:function(response){
 		if(typeof response == 'function') {
 			return response();
@@ -30,6 +41,12 @@ BBB.extend('communicator',{
 		}
 	},///--- catchResponse
 	
+	/**
+	 * Set callback function to be called when the communicator
+	 * receives a response from the other frame.
+	 * 
+	 * This function will be passed the response that is recieved.
+	 **/
 	setCatchCallbackFunction:function(cb){
 		BBB.communicator.catchCallbackFunction = cb || BBB.communicator.catchCallbackFunction;
 	},///--- setCatchCallbackFunction
@@ -41,6 +58,14 @@ BBB.extend('communicator',{
 		);
 	},///--- sendPostMessage
 	
+	/**
+	 * Throws a response to the other frame's
+	 * catchResponse() communicator function.
+	 * 
+	 * If a callback is supplied as the second argument,
+	 * this will attempt to treat it as a function and pass it
+	 * the response from the other frame.
+	 **/
 	throwResponse:function(response,cb) {
 		// if popup
 		if(window.opener) {
