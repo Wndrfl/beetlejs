@@ -1,4 +1,6 @@
 /**
+* BBB.array
+* 
 * Provides custom array functions
 * 
 * @provides 
@@ -10,6 +12,11 @@
 
 BBB.extend('array',{
 	
+	/**
+	 * Provides functionality to loop through a 
+	 * supplied array and apply a function to each 
+	 * array item.
+	 **/
 	forEach:function(item,fn,proto) {
 		if(!item) {
 			return;
@@ -32,6 +39,10 @@ BBB.extend('array',{
 		}
 	},
 	
+	/**
+	 * Checks to see if an array contains a supplied
+	 * array key.
+	 **/
 	hasKey:function(keyName,haystack) {
 		if(typeof haystack === '[object Array]') {
 			for(var key in haystack) {
@@ -43,6 +54,9 @@ BBB.extend('array',{
 		}
 	},
 	
+	/**
+	 * Checks to see if an array container a supplied value.
+	 **/
 	inArray:function(needle,haystack) {
 	    var i = haystack.length;
 	    while(i--) {
