@@ -193,7 +193,7 @@ Now we can print the same message to the console from whatever custom behavior w
 
 ### 6. Tell Beetlejuice how to bind this element
 
-Now that we have our behaviors set up, we need to bind them to DOM element(s). To do this, open up `/beetlejuice/ui/elements/elements.js`.
+Now that we have our behaviors set up, we need to bind them to DOM element(s). To do this, open up `/beetlejuice/core/elements.js`.
 
 If you scroll to the bottom, you will see the following:
 
@@ -229,16 +229,13 @@ The compiler is what allows us to separate our code into easy-to-manage files du
 
 It works by taking a list of files, putting them together, optionally optimizing for speed, and outputting as a Javascript file. This means that we need to keep the compiler informed of any new additions to the framework.
 
-Open `/beetlejuice/compile.php`, scroll to the "elements" section and add the correct path to your new element file:
+Open `/beetlejuice/compile.php`, scroll to the "UI elements" section and add the correct path to your new element file:
 
 <pre>
 //...
 
 // UI elements
-'js/ui/elements/elements.js',
-'js/ui/elements/element.js',
-'js/ui/elements/sampleElement.js',
-'js/ui/elements/alertButton.js',
+'js/ui/elements/alertButton.js'
 
 //...
 </pre>
