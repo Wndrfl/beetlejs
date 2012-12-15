@@ -1,18 +1,20 @@
 /**
-* Provides basic/generic content templates.
+* BBB.content
 * 
-* jQuery
-* 	false
+* Provides basic/generic content templates.
 * 
 * @provides
 * 	BBB.content
 * 
 * @requires
 * 	BBB.scaffold
-*/
-
+**/
 BBB.extend('content',{
 	
+	/**
+	 * Append either a string or a DOM element
+	 * to a parent DOM element
+	 **/
 	append:function(parent,content) {
 		if(typeof content === "string") {
 			var div = document.createElement('div');
@@ -23,12 +25,16 @@ BBB.extend('content',{
 		}
 	},
 	
+	/**
+	 * Append an iframe with the provided
+	 * parameters to a parent DOM element.
+	 **/
 	insertIframe:function(parent,params) {
 		if(!parent) {
 			BBB.log('No parent was provided for the iframe.');
 		}
 		
-		// if ie
+		// if IE
 		if(window.attachEvent) {
 			var i = "<iframe src='" + params.src + "'" + 
 					" id='" + params.id + "'" +
@@ -45,7 +51,7 @@ BBB.extend('content',{
 	
 			BBB.content.append(parent,i);
 		
-		// non ie	
+		// non IE	
 		}else{
 			
 			i = document.createElement('iframe');
