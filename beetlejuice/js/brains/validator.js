@@ -1,9 +1,6 @@
 /**
 * Data validation / data checking 
 * 
-* jQuery
-* 	true
-* 
 * @provides
 * 	BBB.brains.validator
 * 
@@ -14,6 +11,9 @@
 
 BBB.extend('brains.validator',{
 	
+	/**
+	 * Validates the structure of an email address.
+	 **/
 	validEmailAddress:function(email) {
 		var atpos = email.indexOf("@");
 		var dotpos = email.lastIndexOf(".");

@@ -1,9 +1,6 @@
 /**
 * Queues and fires custom events.
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.events
 * 
@@ -14,6 +11,9 @@
 
 BBB.extend('events',{
 	
+	/**
+	 * Clears ALL event listeners.
+	 **/
 	clear:function(eventName) {
 		var subscriptions = BBB.events.subscriptions()[eventName];
 		
@@ -24,6 +24,10 @@ BBB.extend('events',{
 		}
 	},
 	
+	/**
+	 * Fires an event and passes each listener the
+	 * supplied params.
+	 **/
 	fire:function(eventName,params) {
 		var subscriptions = BBB.events.subscriptions()[eventName];
 		
@@ -36,6 +40,10 @@ BBB.extend('events',{
 		}
 	},
 	
+	/**
+	 * Returns a list of all subscriptions for
+	 * all events.
+	 **/
 	subscriptions:function() {
 		if(!BBB.events.subscribers) {
 			BBB.events.subscribers = []
@@ -43,6 +51,12 @@ BBB.extend('events',{
 		return BBB.events.subscribers;
 	},
 	
+	/**
+	 * Subscribes a callback to an event.
+	 * 
+	 * This callback will be called when the event
+	 * is fired.
+	 **/
 	subscribe:function(eventName,cb) {
 		var subscriptions = BBB.events.subscriptions();
 		
@@ -52,6 +66,12 @@ BBB.extend('events',{
 		subscriptions[eventName].push(cb);
 	},
 	
+	/**
+	 * Unsubscribes a callback from an event.
+	 * 
+	 * The cbToRemove argument must be exactly the same
+	 * as the callback to remove.
+	 **/
 	unsubscribe:function(eventName,cbToRemove) {
 		var subscriptions = BBB.events.subscriptions()[eventName];
 		
