@@ -5,10 +5,6 @@
 	if(typeof window.BBB === "undefined") {
 		var BBB = window.BBB = {
 			
-			domains:{
-				www:'http://www.beetlejuice.dev/'
-			},
-			
 			_settings:{},
 			
 			bind:function(scope, fn) {

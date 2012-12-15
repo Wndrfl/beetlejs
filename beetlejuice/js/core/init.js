@@ -16,18 +16,13 @@ BBB.extend('',{
 	init:function(options) {
 	
 		var settings = {
-			plugins:false,
-			xd:false
+			elements:true
 		}
-		BBB.copy(settings,options);
-	
-		// initialize xd
-		if(BBB.xd) {
-			BBB.xd.init();
-		}
+		
+		BBB.copy(settings,options,true);
 	
 		// initialize UI elements
-		if(BBB.ui.elements) {
+		if(settings.elements && BBB.ui.elements) {
 			if(BBB.dom.isReady) {
 				BBB.ui.elements.parse();
 			}else{
