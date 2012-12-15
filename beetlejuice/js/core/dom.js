@@ -8,7 +8,7 @@
 * 	BBB.scaffold
 * 	BBB.array
 * 	BBB.events
-*/
+**/
 
 BBB.extend('dom',{
 	

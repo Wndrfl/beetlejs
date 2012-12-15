@@ -6,7 +6,7 @@
 * 
 * @requires
 * 	BBB.scaffold
-*/
+**/
 
 BBB.Class('ui.element',
 	function(dom) {

@@ -8,7 +8,7 @@
 * 
 * @requires
 * 	BBB.scaffold
-*/
+**/
 
 BBB.extend('array',{
 	

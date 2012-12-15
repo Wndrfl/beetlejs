@@ -7,7 +7,7 @@
 * @requires
 * 	BBB.scaffold
 * 	BBB.array
-*/
+**/
 
 BBB.extend('qs',{
 	

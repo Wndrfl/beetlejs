@@ -3,15 +3,12 @@
 * frames (sharing the same domain) via custom event
 * firing.
 * 
-* jQuery
-* 	false
-* 
 * @provides
 * 	BBB.communicator
 * 
 * @requires
 * 	BBB.scaffold
-*/
+**/
 
 BBB.extend('communicator',{
 	

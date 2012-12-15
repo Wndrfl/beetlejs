@@ -6,8 +6,7 @@
 * 
 * @requires
 * 	BBB.scaffold
-* 	
-*/
+**/
 
 BBB.extend('brains.validator',{
 	

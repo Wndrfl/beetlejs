@@ -6,7 +6,7 @@
 * 
 * @requires
 * 	BBB.scaffold
-*/
+**/
 
 BBB.extend('util',{
 	settings:{},///--- settings
