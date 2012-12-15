@@ -11,6 +11,8 @@ $js = array(
 	'js/core/communicator.js',
 	'js/core/content.js',
 	'js/core/dom.js',
+	'js/core/elements.js',
+	'js/core/element.js',
 	'js/core/events.js',
 	'js/core/init.js',
 	'js/core/qs.js',
@@ -20,9 +22,7 @@ $js = array(
 	'js/brains/validator.js',
 	
 	// UI elements
-	'js/ui/elements/elements.js',
-	'js/ui/elements/element.js',
-	'js/ui/elements/alertButton.js'
+	'js/ui/alertButton.js'
 );
 	
 // all together now
