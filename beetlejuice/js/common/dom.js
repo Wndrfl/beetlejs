@@ -12,8 +12,14 @@
 
 BBB.extend('dom',{
 	
+	/**
+	 * Stores current state of document DOM.
+	 **/
 	isReady:false,
 	
+	/**
+	 * Adds a CSS file to the document <head>.
+	 **/
 	addCssFile:function(url) {
 		var head = document.head || document.getElementsByTagName('head')[0] || document.documentElement,
 		script;
@@ -25,6 +31,9 @@ BBB.extend('dom',{
 		head.appendChild(script);
 	},//-- addCssFile
 	
+	/**
+	 * Adds inline CSS styles to the document <head>.
+	 **/
 	addCssRules:function(styles, names) {
 		
 	    if(!BBB.dom._cssRules) {
@@ -65,6 +74,9 @@ BBB.extend('dom',{
 		}
 	},//-- addCssRules
 	
+	/**
+	 * Adds a class name to a provided DOM element.
+	 **/
 	addClass:function(dom,className) {
 		var oldClasses = dom.className.split(' ');
 		
@@ -82,9 +94,10 @@ BBB.extend('dom',{
 		dom.className = oldClasses.join(' ');
 	},
 	
+	/**
+	 * Adds a Javascript file to the document <head>.
+	 **/
 	addJsFile:function(url) {
-		
-
 		script = document.createElement('script');
 		script.async = "async";
 		script.src = url;
@@ -96,6 +109,9 @@ BBB.extend('dom',{
 		head.appendChild(script);
 	},//--- addJsFile
 	
+	/**
+	 * Attaches an event listener to the DOM
+	 **/
 	attachEvent:function(dom,eventName,cb) {
 		if(dom.addEventListener) {
 			dom.addEventListener(eventName,cb,false);
@@ -104,6 +120,9 @@ BBB.extend('dom',{
 		}
 	},
 	
+	/**
+	 * Attempts to detect the current browser type.
+	 **/
 	getBrowserType:function() {
 		if(!BBB.dom._browserType) {
 	      var
@@ -122,10 +141,18 @@ BBB.extend('dom',{
 	},//-- getBrowserType
 	
 	
-	/*
-		Developed by Robert Nyman, http://www.robertnyman.com
-		Code/licensing: http://code.google.com/p/getelementsbyclassname/
-	*/
+	/**
+	 * Gets all elements found with a given class name.
+	 * 
+	 * Elements can optionally be filtered by their tag name.
+	 * 
+	 * A dom element can be supplied to look in,
+	 * otherwise, will look in the entire document for these 
+	 * elements.
+	 * 
+	 * Developed by Robert Nyman, http://www.robertnyman.com
+	 * Code/licensing: http://code.google.com/p/getelementsbyclassname/
+	 **/
 	getElementsByClassName:function(className,tag,elm) {
 		if (document.getElementsByClassName) {
 			getElementsByClassName = function (className, tag, elm) {
@@ -201,6 +228,13 @@ BBB.extend('dom',{
 		return getElementsByClassName(className, tag, elm);
 	},
 	
+	/**
+	 * Gets elements by their tag name.
+	 * 
+	 * A dom element can be supplied to look in,
+	 * otherwise, will look in the entire document for these 
+	 * elements.
+	 **/
 	getElementsByTagName:function(tagName,dom) {
 		var dom = (dom) ? dom : document.body;
 		if(typeof tagName == "string") {
@@ -217,6 +251,9 @@ BBB.extend('dom',{
 		}
 	},
 	
+	/**
+	 * Checks to see if a DOM element has a given class name.
+	 **/
 	hasClass:function(el,match) {
 		var c;
 	    if (el && el.className && typeof match === "string") {
@@ -228,6 +265,9 @@ BBB.extend('dom',{
 	    }
 	},
 	
+	/**
+	 * Hides an element via CSS
+	 **/
 	hide:function(dom,cb) {
 		dom.style.display = "none";
 		
@@ -236,6 +276,10 @@ BBB.extend('dom',{
 		}
 	},
 	
+	/**
+	 * Checks to see if an element is currently
+	 * visible (not hidden).
+	 **/
 	isVisible:function(dom) {
 		if(dom.offsetHeight == 0 || dom.offsetWidth == 0) { 
 			return false;
@@ -247,10 +291,17 @@ BBB.extend('dom',{
 		return true;
 	},
 	
+	/**
+	 * Completely removes an element from the DOM.
+	 **/
 	remove:function(dom) {
 		BBB.dom.replace(dom,null);
 	},
 	
+	/**
+	 * Removes a class name from a given DOM element's
+	 * classes.
+	 **/
 	removeClass:function(dom,className) {
 		var oldClasses = dom.className.split(' ');
 		
@@ -263,6 +314,9 @@ BBB.extend('dom',{
 		dom.className = oldClasses.join(' ');
 	},
 	
+	/**
+	 * Replaces one dom element with another.
+	 **/
 	replace:function(dom,replacement) {
 		if(!dom.parentNode) {
 			return;
@@ -273,6 +327,9 @@ BBB.extend('dom',{
 		return replaced;
 	},
 	
+	/**
+	 * Shows a previously hidden DOM element via CSS.
+	 **/
 	show:function(dom,cb) {
 		dom.style.display = "block";
 		
@@ -283,8 +340,13 @@ BBB.extend('dom',{
 	
 });
 
-// NOTE: self-executing
-// begin monitoring for dom readiness
+/**
+ * Self-executing function that monitors the DOM
+ * for readiness.
+ * 
+ * This is required to tell when the DOM becomes
+ * ready.
+ **/
 (function() {
 	
 	function domIsReady() {
