@@ -16,12 +16,11 @@ Modern web applications are becoming increasingly reliant on rich user interface
 - common UI & form element templates
 
 ## Installation
-Installation of the Beetlejuice skeleton is a simple 4-step process.
+Installation of the Beetlejuice skeleton is a simple 3-step process.
 
 1. Download a fresh copy of Beetlejuice
 2. Extract into a public web directory
-3. Include the /beetlejuice/css/bbb.css in the header
-4. Include the /beetlejuice/compile.php as a Javascript file in the header
+3. Include the /beetlejuice/compile.php as a Javascript file in the header
 
 <pre>&lt;script src="/beetlejuice/compile.php"&gt;&lt;/script&gt;</pre>
 	
