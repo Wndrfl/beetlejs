@@ -2,7 +2,7 @@
 
 ## Overview
 
-A robust and extensible front-end skeleton by WNDRFL.
+A robust and extensible front-end bootstrap framework by WNDRFL.
 
 ## Why to use it
 
@@ -12,7 +12,7 @@ Modern web applications are becoming increasingly reliant on rich user interface
 - setup up automatic interaction binding
 - full event tracking system
 - parent / child window communications
-- MVC-style architecture
+- MVC-esque architecture
 - common UI & form element templates
 
 ## Installation
