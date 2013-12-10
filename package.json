@@ -1,0 +1,19 @@
+{
+  "name": "beetlejuice",
+  "version": "0.0.1",
+  "description": "A simple javascript framework",
+  "main": "beetlejuice.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wndrfl/Beetlejuice.git"
+  },
+  "author": "WNDRFL",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
