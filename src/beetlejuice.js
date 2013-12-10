@@ -1039,4 +1039,4 @@ BBB.extend('brains.validator',{
 		return (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) ? false : true;
 	}///--- validEmailAddress
 	
-});
+});BBB.init();

@@ -14,6 +14,7 @@ module.exports = function(grunt) {
     concat: {
       options: {
         banner: '<%= banner %>',
+		footer: 'BBB.init();',
         stripBanners: true
       },
       dist: {
