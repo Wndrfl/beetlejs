@@ -34,48 +34,48 @@ Installation of the Beetlejuice skeleton is a simple 3-step process.
 Okay, this is going to be easy, watch:
 
 <code>
-	// Create the object
-	BBB.Class('sampleObject',function() {
+// Create the object
+BBB.Class('sampleObject',function() {
 
-		// this is the constructor area
-	
-	}, {
-	
-		// this is the prototype area
-	
-	});
+	// this is the constructor area
 
-	// Use the object - schwing.
-	var obj = new BBB.sampleObject();
+}, {
+
+	// this is the prototype area
+
+});
+
+// Use the object - schwing.
+var obj = new BBB.sampleObject();
 </code>
 
 There you have it, your first Beetlejuice.js object. It's simple, took about 10 seconds to type, and is currently completely useless...so let's make it do something more:
 
 <code>
-	// Create the object
-	BBB.Class('car',function(color) {
+// Create the object
+BBB.Class('car',function(color) {
 
-		// this is the constructor area
-		this.color = color;
-		this.turnOn();
+	// this is the constructor area
+	this.color = color;
+	this.turnOn();
 
-	}, {
+}, {
 
-		// this is the prototype area
-		turnOn:function() {
-			console.log('Starting engine...');
-		},
+	// this is the prototype area
+	turnOn:function() {
+		console.log('Starting engine...');
+	},
 
-		driveTo:function(place) {
-			console.log('Driving to: '+place);
-		}
+	driveTo:function(place) {
+		console.log('Driving to: '+place);
 	}
-	
-	});
+}
 
-	// Use the object - schwing.
-	var car = new BBB.car('silver');
-	car.driveTo('grocery store');
+});
+
+// Use the object - schwing.
+var car = new BBB.car('silver');
+car.driveTo('grocery store');
 </code>
 
 That's a little better. We now have an object That at least does something. Now, let me explain how it worked. 
@@ -86,9 +86,9 @@ The `BBB.Class();` method accepts 3 arguments: the namespace, an optional constr
 
 <pre>BBB.Class(namespace,constructor,prototype);</pre>
 
-	- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
-	- <b>constructor:</b> <i>Function (optional)</i> A function to be run upon instantiation
-	- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
+- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
+- <b>constructor:</b> <i>Function (optional)</i> A function to be run upon instantiation
+- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
 
 Next, we added a little magic to the `constructor` function, to have it run some logic upon instantiation. <b>Note: two things happen</b> with `constructor` functions:
 
@@ -102,32 +102,32 @@ Finally, we added two methods to the `prototype` area. Unlike the `constructor` 
 Beetlejuice.js also supports inheritence between objects, via `BBB.subclass();`. Here's how that might look, if we wanted to subclass the "class" we created above:
 
 <code>
-	// Create the subclassed object
-	BBB.subclass('car','car.ferrari',function() {
+// Create the subclassed object
+BBB.subclass('car','car.ferrari',function() {
 
-		// This is the constructor area
-		this.radio=null;
-		this.blastTechno();
+	// This is the constructor area
+	this.radio=null;
+	this.blastTechno();
 
-	},{
+},{
 
-		// This is the prototype area
-		blastTechno:function() {
-			this.radio = setInterval(function() {
-				console.log('UNZ KATZ');
-			},1000);
-		},
+	// This is the prototype area
+	blastTechno:function() {
+		this.radio = setInterval(function() {
+			console.log('UNZ KATZ');
+		},1000);
+	},
 
-		stopTechno:function() {
-			clearInterval(this.radio);
-		}
+	stopTechno:function() {
+		clearInterval(this.radio);
+	}
 
-	});
+});
 
-	var ferrari = new BBB.car.ferrari('orange');
-	this.turnOn();
-	ferrari.driveTo('club'); 
-	ferrari.blastTechno();
+var ferrari = new BBB.car.ferrari('orange');
+this.turnOn();
+ferrari.driveTo('club'); 
+ferrari.blastTechno();
 </code>
 
 As you can see here, we wanted to create a similar, yet more specific class of `car`. This new "class" would want to share the same `prototype` that `BBB.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
@@ -138,16 +138,16 @@ The `BBB.subclass();` method is very similar to `BBB.Class();`, except that you 
 
 <pre>BBB.subclass(parentNamespace,namespace,constructor,prototype);</pre>
 
-	- <b>parentNamespace:</b> <i>String</i> The namespace of the "class" to inherit from (can also inherit from other subclasses)
-	- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
-	- <b>constructor:</b> <i>Function (optional)</i> A function to be run upon instantiation
-	- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
+- <b>parentNamespace:</b> <i>String</i> The namespace of the "class" to inherit from (can also inherit from other subclasses)
+- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
+- <b>constructor:</b> <i>Function (optional)</i> A function to be run upon instantiation
+- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
 
 Things to note about subclassing:
 
-	1. if there are any duplicate methods or variables between the subclass and the parent, the subclass' method with <b>overwrite</b> the parent's method or variables.
-	2. the same applies with constructor methods - if a constructor method is supplied with the subclass, it will <b>overwrite</b> the parent's constructor (the parent's constructor will never be called).
-	3. a good practice when naming a subclass is to append it to the name of the parent, separated by a dot ("plant.flower"), however it is not necessary (you could just do "flower").
-	4. <b>Don't forget</b> that subclasses don't have to only subclass something created with `BBB.Class();`! They can also subclass <i>other subclasses</li>.
+1. if there are any duplicate methods or variables between the subclass and the parent, the subclass' method with <b>overwrite</b> the parent's method or variables.
+2. the same applies with constructor methods - if a constructor method is supplied with the subclass, it will <b>overwrite</b> the parent's constructor (the parent's constructor will never be called).
+3. a good practice when naming a subclass is to append it to the name of the parent, separated by a dot ("plant.flower"), however it is not necessary (you could just do "flower").
+4. <b>Don't forget</b> that subclasses don't have to only subclass something created with `BBB.Class();`! They can also subclass <i>other subclasses</li>.
 
 Schwing.
