@@ -121,6 +121,11 @@
 					BBB._settings[key] = settings[key];
 				}
 			},
+
+			run:function(fn) {
+				if(fn.apply)
+					fn.apply(this);
+			},
 			
 			/**
 			 * Returns all BBB settings.
@@ -810,7 +815,7 @@ BBB.extend('ui.elements',{
 	},
 	
 	elementTypes:[
-		{ publicName:'alertButton', className:'ui.alertButton'},
+		//{ publicName:'sampleHtmlClass', className:'ui.sampleElement'},
 	]
 });
 BBB.Class('ui.element',
@@ -910,31 +915,6 @@ BBB.extend('events',{
 					subscriptions[key] = null;
 				}
 			});
-		}
-	}
-});
-BBB.extend('',{
-	
-	/**
-	 * Initializes the entire BBB framework.
-	 **/
-	init:function(options) {
-	
-		var settings = {
-			elements:true
-		}
-		
-		BBB.copy(settings,options,true);
-	
-		// initialize UI elements
-		if(settings.elements && BBB.ui.elements) {
-			if(BBB.dom.isReady) {
-				BBB.ui.elements.parse();
-			}else{
-				BBB.events.subscribe('dom.ready',function() {
-					BBB.ui.elements.parse();
-				});
-			}
 		}
 	}
 });
@@ -1048,4 +1028,21 @@ BBB.extend('util',{
 		window.location.reload();
 	}///--- refreshPage
 	
-});BBB.init();
+});
+BBB.run(function() {
+	
+	var settings = {
+		elements:true
+	}
+
+	// initialize UI elements
+	if(settings.elements && BBB.ui.elements) {
+		if(BBB.dom.isReady) {
+			BBB.ui.elements.parse();
+		}else{
+			BBB.events.subscribe('dom.ready',function() {
+				BBB.ui.elements.parse();
+			});
+		}
+	}
+});

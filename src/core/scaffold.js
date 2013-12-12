@@ -103,29 +103,6 @@
 						? BBB.create(target) : target;
 				BBB.copy(targetNode,source);
 			},
-
-			/**
-			 * Initializes the entire BBB framework.
-			 **/
-			init:function(options) {
-			
-				var settings = {
-					elements:true
-				}
-				
-				BBB.copy(settings,options,true);
-			
-				// initialize UI elements
-				if(settings.elements && BBB.ui.elements) {
-					if(BBB.dom.isReady) {
-						BBB.ui.elements.parse();
-					}else{
-						BBB.events.subscribe('dom.ready',function() {
-							BBB.ui.elements.parse();
-						});
-					}
-				}
-			},
 			
 			/**
 			 * Custom console logging.
@@ -144,6 +121,11 @@
 				for(var key in settings) {
 					BBB._settings[key] = settings[key];
 				}
+			},
+
+			run:function(fn) {
+				if(fn.apply)
+					fn.apply(this);
 			},
 			
 			/**

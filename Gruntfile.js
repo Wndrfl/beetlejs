@@ -14,7 +14,6 @@ module.exports = function(grunt) {
     concat: {
       options: {
         banner: '<%= banner %>',
-		footer: 'BBB.init();',
         stripBanners: true
       },
       dist: {
@@ -27,9 +26,9 @@ module.exports = function(grunt) {
 			'src/core/elements.js',
 			'src/core/element.js',
 			'src/core/events.js',
-			'src/core/init.js',
 			'src/core/qs.js',
-			'src/core/util.js'
+			'src/core/util.js',
+      'src/core/go.js'
 		],
         dest: 'src/<%= pkg.name %>.js'
       }
