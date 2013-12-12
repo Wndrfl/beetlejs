@@ -92,8 +92,8 @@ The `BBB.Class();` method accepts 3 arguments: the namespace, an optional constr
 
 Next, we added a little magic to the `constructor` function, to have it run some logic upon instantiation. <b>Note: two things happen</b> with `constructor` functions:
 
-	1. they can be passed arguments when instantiating the object
-	2. they will <b>automatically</b> be called as soon as the object is instantiated
+1. they can be passed arguments when instantiating the object
+2. they will <b>automatically</b> be called as soon as the object is instantiated
 
 Finally, we added two methods to the `prototype` area. Unlike the `constructor` function, these methods will be called only when they are specifically called.
 
