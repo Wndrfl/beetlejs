@@ -760,6 +760,28 @@ BBB.extend('ui.elements',{
 
 	_elements:[],
 	
+	createElement:function(type) {
+		this._elements[type] = new Array();
+		
+		var els = BBB.dom.getElementsByClassName(type.publicName);
+		var obj = BBB.create(type.className);
+
+		for(i=0;i<els.length;i++) {
+			var element = new obj(els[i]);
+			element.setup();
+			
+			this._elements[type].push(els[i]);
+		}
+	},
+	
+	newElement:function(publicName,namespace,behaviors,constructor) {
+		this.newSubclass('ui.element',publicName,namespace,behaviors,constructor);
+	},
+
+	newSubclass:function(parentNamespace,publicName,namespace,behaviors,constructor) {
+		BBB.subclass(parentNamespace,namespace,constructor,behaviors);
+	},
+
 	parse:function() {
 		var self = this;
 		BBB.array.forEach(BBB.ui.elements.elementTypes,function(type) {
