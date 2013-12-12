@@ -1,13 +1,16 @@
 {
+  "title": "Beetlejuice",
   "name": "beetlejuice",
-  "version": "0.0.1",
+  "version": "0.5.0",
+  "author": {
+    "name": "Wonderful Co."
+  },
   "description": "A simple javascript framework",
   "main": "beetlejuice.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Wndrfl/Beetlejuice.git"
   },
-  "author": "WNDRFL",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.2",

@@ -1,5 +1,5 @@
-/*! beetlejuice - v0.0.1 - 2013-12-11
-* Copyright (c) 2013 ; Licensed  */
+/*! Beetlejuice - v0.5.0 - 2013-12-11
+* Copyright (c) 2013 Wonderful Co.; Licensed MIT */
 (function() {
 	if(typeof window.BBB === "undefined") {
 		var BBB = window.BBB = {
