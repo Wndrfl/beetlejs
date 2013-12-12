@@ -1048,43 +1048,4 @@ BBB.extend('util',{
 		window.location.reload();
 	}///--- refreshPage
 	
-});
-BBB.extend('brains.validator',{
-	
-	/**
-	 * Validates the structure of an email address.
-	 **/
-	validEmailAddress:function(email) {
-		var atpos = email.indexOf("@");
-		var dotpos = email.lastIndexOf(".");
-		return (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) ? false : true;
-	}///--- validEmailAddress
-	
-});
-BBB.subclass('ui.element','ui.alertButton',function(dom) {
-	this.dom = dom;
-	console.log('Constructing the alertButton!');
-},{
-
-	// will be run automatically
-	setupAndValidate:function() {
-	
-		var self = this; // set a local copy of 'this'
-	
-		this.dom.onclick = function() {
-			self.logMessage();
-		}
-		
-		this.dom.onmouseover = function() {
-			self.logMessage();
-		}
-		
-		return true;
-	},
-	
-	// method to print message to console
-	logMessage:function() {
-		console.log('Hey! You clicked me!');
-	}
-	
 });BBB.init();
