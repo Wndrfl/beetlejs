@@ -78,7 +78,7 @@ var car = new BBB.car('silver');
 car.driveTo('grocery store');
 </pre>
 
-That's a little better. We now have an object That at least does something. Now, let me explain how it worked. 
+That's a little better. We now have an object that at least does something. Now, let me explain how it worked. 
 
 To create a "class" in Beetlejuice.js, you simply need to call the `BBB.Class();` method. We did this in the first line.
 
