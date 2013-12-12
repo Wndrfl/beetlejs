@@ -1,251 +1,153 @@
-# Beetlejuice
+# Beetlejuice.js
 
 ## Overview
 
-A robust and extensible front-end bootstrap framework by WNDRFL.
+A simple and extensible Javascript framework starter kit by WNDRFL.
 
 ## Why to use it
 
-Modern web applications are becoming increasingly reliant on rich user interfaces. Beetlejuice helps by providing a strong platform on which your application's front-end can be built. The entire framework is built on the concept of complete reusability, which leads to less duplication of code.
+Beetlejuice.js provides a strong and flexible "starter kit" for the development of a custom Javascript framework. Unlike jQuery, Beetlejuice.js isn't a library - instead its purpose is to make it easier to create rich networks of objects.
 
-- easily create your own reusable html/css/js UI elements
-- setup up automatic interaction binding
-- full event tracking system
-- parent / child window communications
-- MVC-esque architecture
-- common UI & form element templates
+Out of the box, Beetlejuice.js...
+
+- is less than 10kb
+- provides an easy and extensible namespace with scaffolding for the creation of rich objects
+- supports simulated object "inheritance"
+- supports communication between objects via events
+- is packaged with common tools to make the creation of your robust objects easier
+
+In addition, Beetlejuice.js supports third party plugins, which opens the door to anything.
+
+Schwing.
 
 ## Installation
 Installation of the Beetlejuice skeleton is a simple 3-step process.
 
 1. Download a fresh copy of Beetlejuice
 2. Extract into a public web directory
-3. Include the /beetlejuice/compile.php as a Javascript file in the header
+3. Include the `beetlejuice.min.js` as a Javascript file in the header
 
-<pre>&lt;script src="/beetlejuice/compile.php"&gt;&lt;/script&gt;</pre>
+<pre>&lt;script src="/path/to/beetlejuice.min.js"&gt;&lt;/script&gt;</pre>
+
+## Create your first object
+
+Okay, this is going to be easy, watch:
+
+<code>
+	// Create the object
+	BBB.Class('sampleObject',function() {
+
+		// this is the constructor area
 	
-## Create a New UI Element
-A "UI element" to Beetlejuice is simply a set of behaviors that are bound to an existing DOM element. Beetlejuice parses the page according to your instructions, finds DOM elements matching your criteria, and binds each to its own set of behaviors.
-
-It's important to note that to Beetlejuice, a "UI element" is actually DOM agnostic - simply put, it will perform the mandated behaviors on any element that fits the criteria you assign. This adds flexibility by allowing the same set of behaviors to be shared among DOM elements that are technically different, but that tend to act the same way.
-
-Creating a new element is done by subclassing the BBB.ui.element "class" and adding its unique behaviors. When this is complete, the behaviors are ready to be bound to any DOM element on the page.
-
-Let's walk through the creation of a simple UI Element that will attach to a DOM element and log a message in the console when clicked.
-
-### 1. Create a file for the new element
-Create a new file in the `/beetlejuice/ui/` folder called 'alertButton.js'.
-
-### 2. Subclass BBB.ui.element
-Inside the new file, tell Beetlejuice (accessible by the namespace BBB) to subclass the generic UI element, and name the subclass "ui.alertButton".
-
-<pre>BBB.subclass('ui.element','ui.alertButton');</pre>
-
-### 3. Add an optional constructor method
-In line with the concept of "classes", Beetlejuice allows you to supply a function as the third argument, to be run upon instantiation of your new element. This method is __optional__, but let's have our new element print a message to the console upon instantiation.
-
-<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
-	this.dom = dom;
-	console.log('Constructing the alertButton!');
-});</pre>
-
-Let's explain something else that you see happening in the above example. The only argument passed into the construct is `dom`. In this case, `dom` refers to the DOM element itself that Beetlejuice is binding these behaviors to. It is a good practice to save this reference locally (as we do in the example), so that your behaviors can reference it later.
-
-**Note:** If you don't supply a constructor, Beetlejuice will automatically make the DOM element available as `this.dom` in the same way we did above.
-
-### 4. Add a custom behavior
-The 4th and final argument supplied to BBB.subclass() is an object with custom behaviors (in the forms of methods and variables) that will define how the element exists.
-
-<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
-	this.dom = dom;
-	console.log('Constructing the alertButton!');
-},{
-	// Custom behaviors go here
-});</pre>
-
-Since we are making an element that logs an alert whenever it is clicked, we need to tell the element to monitor itself for any click events and to react accordingly.
-
-To do this, we are going to take advantage of an *optional* method that Beetlejuice looks for and runs (when found) immediately after successfully constructing the element. This method is called `setupAndValidate()`.
-
-<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
-	this.dom = dom;
-	console.log('Constructing the alertButton!');
-},{
-
-	// will be run automatically
-	setupAndValidate:function() {
+	}, {
 	
-		this.dom.onclick = function() {
-			console.log('Hey! You clicked me!');
+		// this is the prototype area
+	
+	});
+
+	// Use the object - schwing.
+	var obj = new BBB.sampleObject();
+</code>
+
+There you have it, your first Beetlejuice.js object. It's simple, took about 10 seconds to type, and is currently completely useless...so let's make it do something more:
+
+<code>
+	// Create the object
+	BBB.Class('car',function(color) {
+
+		// this is the constructor area
+		this.color = color;
+		this.turnOn();
+
+	}, {
+
+		// this is the prototype area
+		turnOn:function() {
+			console.log('Starting engine...');
+		},
+
+		driveTo:function(place) {
+			console.log('Driving to: '+place);
 		}
-		
-		return true;
-	}
-});</pre>
-
-Let's review what we did here.
-
-First, we kicked off the method and named it `setupAndValidate`:
-
-<pre>setupAndValidate:function() {</pre>
-
-Next, we reference `this.dom` an assign it's `onclick` listener to a function that will display an alert (we'll explain more after):
-
-<pre>
-this.dom.onclick = function() {
-    console.log('Hey! You clicked me!');
-}
-</pre>
-
-You might be wondering where we got `this.dom`? When Beetlejuice binds your element to its corresponding DOM element, it saves a reference to that DOM element as `this.dom`. This way, whenever you need to reference the DOM, you can find it at `this.dom`.
-
-The last thing we did was…
-
-<pre>return true;</pre>
-
-We do this because `setupAndValidate()` **MUST** return either `true` or `false`. If it returns `false`, Beetlejuice will abort the setup of this specific instance of the element, print an error message to the console, and otherwise move on quietly.
-
-### 5. Let's make this a little more flexible
-It's great that we set up the element to pop the `alert` when clicked, but what if we wanted other events to create the exact same `alert` as well? The old fashioned way would be to do something like below:
-
-<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
-	this.dom = dom;
-	console.log('Constructing the alertButton!');
-},{
-
-	// will be run automatically
-	setupAndValidate:function() {
-	
-		this.dom.onclick = function() {
-			console.log('Hey! You clicked me!');
-		}
-		
-		this.dom.onmouseover = function() {
-			console.log('Hey! You clicked me!');
-		}
-		
-		return true;
-	}
-});</pre>
-
-This could quickly turn into a headache with an element that has anything more than a small about of behaviors. Let's try and refactor a little bit - by putting the logging function in a new custom behavior, we can separate it from it's different listeners, and consolidate our code a little:
-
-<pre>BBB.subclass('ui.element','ui.alertButton',function(dom) {
-	this.dom = dom;
-	console.log('Constructing the alertButton!');
-},{
-
-	// will be run automatically
-	setupAndValidate:function() {
-	
-		var self = this; // set a local copy of 'this'
-	
-		this.dom.onclick = function() {
-			self.logMessage();
-		}
-		
-		this.dom.onmouseover = function() {
-			self.logMessage();
-		}
-		
-		return true;
-	},
-	
-	// method to print message to console
-	logMessage:function() {
-		console.log('Hey! You clicked me!');
-	}
-});</pre>
-
-You'll notice 2 things about what we did above.
-
-First, we added a local reference to `this` to solve the problem of scope when the element attempts to reference its own function:
-
-<pre>var self = this;</pre>
-
-Then, we moved the two occurances of the `console.log()` function to a *new* custom behavior called `logMessage()` and updated the event listeners in `setupAndValidate()` to reflect the changes.
-
-<pre>
-// will be run automatically
-setupAndValidate:function() {
-
-	var self = this; // set a local copy of 'this'
-
-	this.dom.onclick = function() {
-		self.logMessage();
 	}
 	
-	this.dom.onmouseover = function() {
-		self.logMessage();
-	}
-	
-	return true;
-},
+	});
 
-// method to print message to console
-logMessage:function() {
-	console.log('Hey! You clicked me!');
-}
-</pre>
+	// Use the object - schwing.
+	var car = new BBB.car('silver');
+	car.driveTo('grocery store');
+</code>
 
-Now we can print the same message to the console from whatever custom behavior we'd like!
+That's a little better. We now have an object That at least does something. Now, let me explain how it worked. 
 
-### 6. Tell Beetlejuice how to bind this element
+To create a "class" in Beetlejuice.js, you simply need to call the `BBB.Class();` method. We did this in the first line.
 
-Now that we have our behaviors set up, we need to bind them to DOM element(s). To do this, open up `/beetlejuice/core/elements.js`.
+The `BBB.Class();` method accepts 3 arguments: the namespace, an optional constructor function, and a prototype object:
 
-If you scroll to the bottom, you will see the following:
+<pre>BBB.Class(namespace,constructor,prototype);</pre>
 
-<pre>
-elementTypes:[
-	{ publicName:'BBB_sample_element', className:'ui.sampleElement'},
-]
-</pre>
+	- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
+	- <b>constructor:</b> <i>Function (optional)</i> A function to be run upon instantiation
+	- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
 
-This is the area that tells Beetlejuice how to bind its elements to the DOM. To add your new element to the binding process, you simply need to add a new object to the `elementTypes`:
+Next, we added a little magic to the `constructor` function, to have it run some logic upon instantiation. <b>Note: two things happen</b> with `constructor` functions:
 
-<pre>
-elementTypes:[
-	{ publicName:'BBB_sample_element', className:'ui.sampleElement'},
-	{ publicName:'alertButton`, className:'ui.alertButton'}
-]
-</pre>
+	1. they can be passed arguments when instantiating the object
+	2. they will <b>automatically</b> be called as soon as the object is instantiated
 
-Let's explain what just happened. Above, we added a *new object* to the `elementTypes` array with *two* keys: **publicName** and **className**.
+Finally, we added two methods to the `prototype` area. Unlike the `constructor` function, these methods will be called only when they are specifically called.
 
-**publicName:** This is the CSS class name that you will use in the DOM to indicate that you would like Beetlejuice to bind your new behaviors to it. In this case, according to what we indicated above, Beetlejuice would look for something like the below in the DOM:
+## Inheritance
 
-<pre>
-&lt;div class="alertButton"&gt;&lt;/div&gt;
-</pre>
+Beetlejuice.js also supports inheritence between objects, via `BBB.subclass();`. Here's how that might look, if we wanted to subclass the "class" we created above:
 
-**className:** This is the Beetlejuice UI element name that you just created. In this case, you just created `ui.alertButton`.
+<code>
+	// Create the subclassed object
+	BBB.subclass('car','car.ferrari',function() {
 
-### 7. Add the new element to the compiler
-Now that Beetlejuice knows how to bind this element to the DOM, we need to add it to the compiler.
+		// This is the constructor area
+		this.radio=null;
+		this.blastTechno();
 
-The compiler is what allows us to separate our code into easy-to-manage files during development, but treat the entire collection as a single file in production. 
+	},{
 
-It works by taking a list of files, putting them together, optionally optimizing for speed, and outputting as a Javascript file. This means that we need to keep the compiler informed of any new additions to the framework.
+		// This is the prototype area
+		blastTechno:function() {
+			this.radio = setInterval(function() {
+				console.log('UNZ KATZ');
+			},1000);
+		},
 
-Open `/beetlejuice/compile.php`, scroll to the "UI elements" section and add the correct path to your new element file:
+		stopTechno:function() {
+			clearInterval(this.radio);
+		}
 
-<pre>
-//...
+	});
 
-// UI elements
-'js/ui/elements/alertButton.js'
+	var ferrari = new BBB.car.ferrari('orange');
+	this.turnOn();
+	ferrari.driveTo('club'); 
+	ferrari.blastTechno();
+</code>
 
-//...
-</pre>
+As you can see here, we wanted to create a similar, yet more specific class of `car`. This new "class" would want to share the same `prototype` that `BBB.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
 
-### 8. Add a "Bindable" DOM element
-Almost done! Beetlejuice is ready to use your new UI element, all you need to do is add a DOM element that fits the criteria you specified to Beetlejuice for binding.
+To do this, we used `BBB.subclass();` to allow the Ferrari to inherit from `car`'s prototype.
 
-Open up an HTML file somewhere (where Beetlejuice is installed) and add the following:
+The `BBB.subclass();` method is very similar to `BBB.Class();`, except that you also need to pass the namespace of the class to be inherited from as the first argument:
 
-<pre>
-&lt;div class="alertButton"&gt;&lt;/div&gt;
-</pre>
+<pre>BBB.subclass(parentNamespace,namespace,constructor,prototype);</pre>
 
-### 9. Refresh the page, and try it!
+	- <b>parentNamespace:</b> <i>String</i> The namespace of the "class" to inherit from (can also inherit from other subclasses)
+	- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
+	- <b>constructor:</b> <i>Function (optional)</i> A function to be run upon instantiation
+	- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
+
+Things to note about subclassing:
+
+	1. if there are any duplicate methods or variables between the subclass and the parent, the subclass' method with <b>overwrite</b> the parent's method or variables.
+	2. the same applies with constructor methods - if a constructor method is supplied with the subclass, it will <b>overwrite</b> the parent's constructor (the parent's constructor will never be called).
+	3. a good practice when naming a subclass is to append it to the name of the parent, separated by a dot ("plant.flower"), however it is not necessary (you could just do "flower").
+	4. <b>Don't forget</b> that subclasses don't have to only subclass something created with `BBB.Class();`! They can also subclass <i>other subclasses</li>.
+
+Schwing.
