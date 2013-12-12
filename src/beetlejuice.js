@@ -1,4 +1,4 @@
-/*! beetlejuice - v0.0.1 - 2013-12-10
+/*! beetlejuice - v0.0.1 - 2013-12-11
 * Copyright (c) 2013 ; Licensed  */
 (function() {
 	if(typeof window.BBB === "undefined") {
@@ -77,6 +77,15 @@
 				
 				return node;
 			},
+
+			/**
+			 * Completely destory an object recursively
+			 **/
+			destroy:function(obj) {
+    			for (var o in obj) if (isNaN(parseInt(o))) this.destroy(obj[o]); console.log('hi')
+    			obj = null;
+    			delete obj;
+			},
 			
 			/**
 			 * Extends an object by adding the source argument
@@ -146,6 +155,17 @@
 				        }
 				      },
 				      proto);
+			},
+
+			whitelabel:function(targetName) {
+				if(typeof targetName !== "string") {
+					return false;
+				}
+				if(typeof window[targetName] === "undefined") {
+					window[targetName] = {};
+					this.extend(window[targetName],this);
+				}
+				return false;
 			}
 		}
 	}
@@ -348,7 +368,7 @@ BBB.extend('content',{
 	}
 });
 BBB.extend('dom',{
-	
+
 	/**
 	 * Stores current state of document DOM.
 	 **/
@@ -751,6 +771,7 @@ BBB.extend('ui.elements',{
 			
 			var els = BBB.dom.getElementsByClassName(type.publicName);
 			var obj = BBB.create(type.className);
+			console.log(type.className);
 
 			for(i=0;i<els.length;i++) {
 				var element = new obj(els[i]);
@@ -1038,5 +1059,32 @@ BBB.extend('brains.validator',{
 		var dotpos = email.lastIndexOf(".");
 		return (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) ? false : true;
 	}///--- validEmailAddress
+	
+});
+BBB.subclass('ui.element','ui.alertButton',function(dom) {
+	this.dom = dom;
+	console.log('Constructing the alertButton!');
+},{
+
+	// will be run automatically
+	setupAndValidate:function() {
+	
+		var self = this; // set a local copy of 'this'
+	
+		this.dom.onclick = function() {
+			self.logMessage();
+		}
+		
+		this.dom.onmouseover = function() {
+			self.logMessage();
+		}
+		
+		return true;
+	},
+	
+	// method to print message to console
+	logMessage:function() {
+		console.log('Hey! You clicked me!');
+	}
 	
 });BBB.init();

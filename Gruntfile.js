@@ -30,7 +30,8 @@ module.exports = function(grunt) {
 			'src/core/init.js',
 			'src/core/qs.js',
 			'src/core/util.js',
-			'src/brains/validator.js'
+			'src/brains/validator.js',
+      'src/ui/alertButton.js'
 		],
         dest: 'src/<%= pkg.name %>.js'
       }

@@ -11,7 +11,7 @@
 **/
 
 BBB.extend('dom',{
-	
+
 	/**
 	 * Stores current state of document DOM.
 	 **/

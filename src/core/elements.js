@@ -21,6 +21,7 @@ BBB.extend('ui.elements',{
 			
 			var els = BBB.dom.getElementsByClassName(type.publicName);
 			var obj = BBB.create(type.className);
+			console.log(type.className);
 
 			for(i=0;i<els.length;i++) {
 				var element = new obj(els[i]);
