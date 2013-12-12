@@ -14,7 +14,7 @@
 			
 			/**
 			 * Creates a new Javascript "Class" under the 
-			 * BBB namespace that can be extended and inherited from.
+			 * main namespace that can be extended and inherited from.
 			 **/
 			Class:function(name,constructor,proto) {
 				if(!BBB.CLASSES) {
@@ -52,7 +52,7 @@
 			
 			/**
 			 * Finds or creates a supplied value (an object by default) 
-			 * in the BBB namespace, at the supplied target.
+			 * in the main namespace, at the supplied target.
 			 * 
 			 * The target should be a dot-separated name, like so:
 			 * "this.is.my.target.name".
@@ -92,7 +92,7 @@
 			 * to it.
 			 * 
 			 * If target is a string, it creates a blank namespace 
-			 * in the BBB framework.
+			 * in the framework.
 			 * 
 			 * The target is extended by copying all items in the source
 			 * into the target object.
@@ -104,7 +104,7 @@
 			},
 			
 			/**
-			 * Custom console logging.
+			 * Custom console logging
 			 **/
 			log:function() { 
 				if(window.console && window.console.log) {
@@ -114,7 +114,7 @@
 			},
 
 			/**
-			 * Imports framework settings into BBB.
+			 * Imports framework settings
 			 **/
 			importSettings:function(settings) {
 				for(var key in settings) {
@@ -122,20 +122,23 @@
 				}
 			},
 
+			/**
+			 * Run a function in the scope of the framework
+			 **/
 			run:function(fn) {
 				if(fn.apply)
 					fn.apply(this);
 			},
 			
 			/**
-			 * Returns all BBB settings.
+			 * Returns all framework settings
 			 **/
 			settings:function(key) {
 				return (BBB._settings[key]) ? BBB._settings[key] : false;
 			},
 			
 			/**
-			 * Subsclasses a parent class.
+			 * Subsclasses a parent class
 			 * 
 			 * If parent class does not already exist, it creates 
 			 * it on the fly.
@@ -160,17 +163,6 @@
 				        }
 				      },
 				      proto);
-			},
-
-			whitelabel:function(targetName) {
-				if(typeof targetName !== "string") {
-					return false;
-				}
-				if(typeof window[targetName] === "undefined") {
-					window[targetName] = {};
-					this.extend(window[targetName],this);
-				}
-				return false;
 			}
 		}
 	}
