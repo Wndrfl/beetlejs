@@ -1,20 +1,8 @@
 /**
- * Initializes the entire BBB framework.
+ * Init instructions for the framework
  **/
 BBB.run(function() {
 	
-	var settings = {
-		elements:true
-	}
+	// Tell the framework how to start up here
 
-	// initialize UI elements
-	if(settings.elements && BBB.ui.elements) {
-		if(BBB.dom.isReady) {
-			BBB.ui.elements.parse();
-		}else{
-			BBB.events.subscribe('dom.ready',function() {
-				BBB.ui.elements.parse();
-			});
-		}
-	}
 });

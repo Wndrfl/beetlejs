@@ -1,4 +1,4 @@
-/*! Beetlejuice - v0.5.0 - 2013-12-11
+/*! Beetlejuice - v0.5.0 - 2013-12-12
 * Copyright (c) 2013 Wonderful Co.; Licensed MIT */
 (function() {
 	if(typeof window.BBB === "undefined") {
@@ -76,15 +76,6 @@
 				}
 				
 				return node;
-			},
-
-			/**
-			 * Completely destory an object recursively
-			 **/
-			destroy:function(obj) {
-    			for (var o in obj) if (isNaN(parseInt(o))) this.destroy(obj[o]); console.log('hi')
-    			obj = null;
-    			delete obj;
 			},
 			
 			/**
@@ -756,107 +747,6 @@ BBB.extend('dom',{
 		}
 	}
 })();
-BBB.extend('ui.elements',{
-
-	_elements:[],
-	
-	createElement:function(type) {
-		this._elements[type] = new Array();
-		
-		var els = BBB.dom.getElementsByClassName(type.publicName);
-		var obj = BBB.create(type.className);
-
-		for(i=0;i<els.length;i++) {
-			var element = new obj(els[i]);
-			element.setup();
-			
-			this._elements[type].push(els[i]);
-		}
-	},
-	
-	newElement:function(publicName,namespace,behaviors,constructor) {
-		this.newSubclass('ui.element',publicName,namespace,behaviors,constructor);
-	},
-
-	newSubclass:function(parentNamespace,publicName,namespace,behaviors,constructor) {
-		BBB.subclass(parentNamespace,namespace,constructor,behaviors);
-	},
-
-	parse:function() {
-		var self = this;
-		BBB.array.forEach(BBB.ui.elements.elementTypes,function(type) {
-			
-			self._elements[type] = new Array();
-			
-			var els = BBB.dom.getElementsByClassName(type.publicName);
-			var obj = BBB.create(type.className);
-			console.log(type.className);
-
-			for(i=0;i<els.length;i++) {
-				var element = new obj(els[i]);
-				element.setup();
-				
-				self._elements[type].push(els[i]);
-			}
-		});
-	},
-	
-	/*
-	 * Find all new instances of publicName and bind
-	**/
-	parseNew:function(publicName) {
-		var els = BBB.dom.getElementsByClassName(publicName);
-		if(els.length == 0) {
-			return;
-		}
-		
-		var self = this;
-		
-		BBB.array.forEach(BBB.ui.elements.elementTypes,function(type) {
-			if(type.publicName == publicName) {
-				var obj = BBB.create(type.className);
-
-				for(i=0;i<els.length;i++) {
-					if(!BBB.array.inArray(els[i],self._elements)) {
-						var element = new obj(els[i]);
-						element.setup();
-				
-						self._elements[type].push(els[i]);
-					}
-				}
-			}
-		});
-	},
-	
-	elementTypes:[
-		//{ publicName:'sampleHtmlClass', className:'ui.sampleElement'},
-	]
-});
-BBB.Class('ui.element',
-	function(dom) {
-		this.dom = dom;
-	},
-	{
-		getAttribute:function(name,defaultValue,transform) {
-			var value = (
-			  this.dom.getAttribute(name) ||
-		      this.dom.getAttribute(name.replace(/-/g, '_')) ||
-		      this.dom.getAttribute(name.replace(/-/g, ''))
-		    );
-		    return value ? (transform ? transform(value) : value) : defaultValue;
-		},
-		
-		setup:function() {
-			if(!this.setupAndValidate()) {
-				BBB.log('setup failed');
-				return false;
-			}
-		},
-		
-		setupAndValidate:function() {
-			return true;
-		}
-	});
 BBB.extend('events',{
 	
 	/**
@@ -1045,18 +935,6 @@ BBB.extend('util',{
 });
 BBB.run(function() {
 	
-	var settings = {
-		elements:true
-	}
+	// Tell the framework how to start up here
 
-	// initialize UI elements
-	if(settings.elements && BBB.ui.elements) {
-		if(BBB.dom.isReady) {
-			BBB.ui.elements.parse();
-		}else{
-			BBB.events.subscribe('dom.ready',function() {
-				BBB.ui.elements.parse();
-			});
-		}
-	}
 });

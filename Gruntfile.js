@@ -23,8 +23,6 @@ module.exports = function(grunt) {
 			'src/core/communicator.js',
 			'src/core/content.js',
 			'src/core/dom.js',
-			'src/core/elements.js',
-			'src/core/element.js',
 			'src/core/events.js',
 			'src/core/qs.js',
 			'src/core/util.js',

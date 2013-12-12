@@ -78,15 +78,6 @@
 				
 				return node;
 			},
-
-			/**
-			 * Completely destory an object recursively
-			 **/
-			destroy:function(obj) {
-    			for (var o in obj) if (isNaN(parseInt(o))) this.destroy(obj[o]); console.log('hi')
-    			obj = null;
-    			delete obj;
-			},
 			
 			/**
 			 * Extends an object by adding the source argument
