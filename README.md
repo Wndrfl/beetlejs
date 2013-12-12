@@ -33,7 +33,7 @@ Installation of the Beetlejuice skeleton is a simple 3-step process.
 
 Okay, this is going to be easy, watch:
 
-<code>
+<pre>
 // Create the object
 BBB.Class('sampleObject',function() {
 
@@ -47,11 +47,11 @@ BBB.Class('sampleObject',function() {
 
 // Use the object - schwing.
 var obj = new BBB.sampleObject();
-</code>
+</pre>
 
 There you have it, your first Beetlejuice.js object. It's simple, took about 10 seconds to type, and is currently completely useless...so let's make it do something more:
 
-<code>
+<pre>
 // Create the object
 BBB.Class('car',function(color) {
 
@@ -76,7 +76,7 @@ BBB.Class('car',function(color) {
 // Use the object - schwing.
 var car = new BBB.car('silver');
 car.driveTo('grocery store');
-</code>
+</pre>
 
 That's a little better. We now have an object That at least does something. Now, let me explain how it worked. 
 
