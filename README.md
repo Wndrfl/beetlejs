@@ -101,7 +101,7 @@ Finally, we added two methods to the `prototype` area. Unlike the `constructor` 
 
 Beetlejuice.js also supports inheritence between objects, via `BBB.subclass();`. Here's how that might look, if we wanted to subclass the "class" we created above:
 
-<code>
+<pre>
 // Create the subclassed object
 BBB.subclass('car','car.ferrari',function() {
 
@@ -128,7 +128,7 @@ var ferrari = new BBB.car.ferrari('orange');
 this.turnOn();
 ferrari.driveTo('club'); 
 ferrari.blastTechno();
-</code>
+</pre>
 
 As you can see here, we wanted to create a similar, yet more specific class of `car`. This new "class" would want to share the same `prototype` that `BBB.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
 
