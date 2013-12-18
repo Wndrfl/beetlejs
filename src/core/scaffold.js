@@ -113,6 +113,49 @@
 					BBB._settings[key] = settings[key];
 				}
 			},
+			
+			/**
+			 * Subsclasses a parent class
+			 * 
+			 * If parent class does not already exist, it creates 
+			 * it on the fly.
+			 **/
+			namespace:function(name,parents,constructor,proto) {
+				
+				if(!BBB.CLASSES) {
+					BBB.CLASSES = {}
+				}
+				
+				if(BBB.CLASSES[name]) {
+					return BBB.CLASSES[name];
+				}
+				
+				// copy parent methods into proto (don't overwrite)
+				
+				// if parents in array form
+				var parentClass = function() {};
+				if(typeof parents === 'array') {
+					
+					for(i=0;i<parents.length;i++) {
+						parentClass = BBB.create(parents[i]);
+						BBB.copy(proto,parentClass.prototype);
+					}
+				
+				// if parents in string form
+				}else if(typeof parents === 'string') {
+					parentClass = BBB.create(parents);
+					BBB.copy(proto,parentClass.prototype);
+				}
+
+				
+				return BBB.Class(name,
+					constructor ? constructor : function() {
+				        if (parentClass.apply) {
+				          parentClass.apply(this, arguments);
+				        }
+				      },
+				      proto);
+			},
 
 			/**
 			 * Run a function in the scope of the framework
@@ -127,35 +170,8 @@
 			 **/
 			settings:function(key) {
 				return (BBB._settings[key]) ? BBB._settings[key] : false;
-			},
-			
-			/**
-			 * Subsclasses a parent class
-			 * 
-			 * If parent class does not already exist, it creates 
-			 * it on the fly.
-			 **/
-			subclass:function(parentName,name,constructor,proto) {
-				if(BBB.CLASSES[name]) {
-					return BBB.CLASSES[name];
-				}
-				
-				if(!BBB.CLASSES) {
-					BBB.CLASSES = {}
-				}
-				
-				// copy parent methods into proto (don't overwrite)
-				var parentClass = BBB.create(parentName);
-				BBB.copy(proto,parentClass.prototype);
-				
-				return BBB.Class(name,
-					constructor ? constructor : function() {
-				        if (parentClass.apply) {
-				          parentClass.apply(this, arguments);
-				        }
-				      },
-				      proto);
 			}
+			
 		}
 	}
 })();
