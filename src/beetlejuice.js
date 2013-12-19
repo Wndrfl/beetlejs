@@ -1,4 +1,4 @@
-/*! Beetlejuice - v0.5.0 - 2013-12-17
+/*! Beetlejuice - v0.5.0 - 2013-12-19
 * Copyright (c) 2013 Wonderful Co.; Licensed MIT */
 (function() {
 	if(typeof window.BBB === "undefined") {
@@ -119,36 +119,43 @@
 			 * If parent class does not already exist, it creates 
 			 * it on the fly.
 			 **/
-			namespace:function(name,parents,constructor,proto) {
+			namespace:function(namespace,extend,construct,proto) {
 				
 				if(!BBB.CLASSES) {
 					BBB.CLASSES = {}
 				}
 				
-				if(BBB.CLASSES[name]) {
-					return BBB.CLASSES[name];
+				if(typeof namespace === 'object') {
+					extend = namespace.extend;
+					construct = namespace.construct;
+					proto = namespace.proto;
+					namespace = namespace.namespace;
+				}
+				
+				if(BBB.CLASSES[namespace]) {
+					return BBB.CLASSES[namespace];
 				}
 				
 				// copy parent methods into proto (don't overwrite)
 				
-				// if parents in array form
+				// if extend in array form
 				var parentClass = function() {};
-				if(typeof parents === 'array') {
+				if(typeof extend === 'array') {
 					
-					for(i=0;i<parents.length;i++) {
-						parentClass = BBB.create(parents[i]);
+					for(i=0;i<extend.length;i++) {
+						parentClass = BBB.create(extend[i]);
 						BBB.copy(proto,parentClass.prototype);
 					}
 				
-				// if parents in string form
-				}else if(typeof parents === 'string') {
-					parentClass = BBB.create(parents);
+				// if extend in string form
+				}else if(typeof extend === 'string') {
+					parentClass = BBB.create(extend);
 					BBB.copy(proto,parentClass.prototype);
 				}
 
 				
-				return BBB.Class(name,
-					constructor ? constructor : function() {
+				return BBB.Class(namespace,
+					construct ? construct : function() {
 				        if (parentClass.apply) {
 				          parentClass.apply(this, arguments);
 				        }
