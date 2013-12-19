@@ -101,17 +101,17 @@ Next, we added a little magic to the `construct` function, to have it run some l
 1. they can be passed arguments when instantiating the object
 2. they will <b>automatically</b> be called as soon as the object is instantiated
 
-Finally, we added two methods to the `prototype` area. Unlike the `constructor` function, these methods will be called only when they are specifically called.
+Finally, we added two methods to the `prototype` area. Unlike the `construct` function, these methods will be called only when they are specifically called.
 
 ## Inheritance
 
 Beetlejuice.js also supports psuedo-inheritence between objects, via `BBB.namespace();`. Here's how that might look, if we wanted to "subclass" the "class" we created above:
 
 <pre>
-// Create the "subclassed" object
+// Create the "subclassed" object, notice the "extend" parameter
 BBB.namespace({
 	namespace: 'car',
-	extend: 'car.ferrari', // <-- this is where the magic happens
+	extend: 'car.ferrari',
 	construct: function() {
 
 		// This is the constructor area
