@@ -4,7 +4,7 @@
 
 	var ___ = window.___ = {
 
-		VERSION: '1.0.0',
+		VERSION: '0.5.1',
 		DEBUG: true,
 
 		_namespace:function(namespace,value) {
