@@ -5,7 +5,7 @@ if(isset($_GET['namespace'])) {
 	$file = fopen('../src/beetlejuice.min.js', 'r+');
 	while(!feof($file)) {
 		$line = fgets($file);
-		echo preg_replace('/BBB/', $namespace, $line);
+		echo preg_replace('/___/', $namespace, $line);
 	}
 	fclose($file);
 	exit;

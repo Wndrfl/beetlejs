@@ -1,26 +1,15 @@
-/**
-* Queues and fires custom events.
-* 
-* @provides
-* 	BBB.events
-* 
-* @requires
-* 	BBB.scaffold
-* 	BBB.array
-**/
-
-BBB.extend('events',{
+___.extend('events',{
 	
 	/**
 	 * Clears ALL event listeners.
 	 **/
 	clear:function(eventName) {
-		var subscriptions = BBB.events.subscriptions()[eventName];
+		var subscriptions = ___.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
-			BBB.array.forEach(subscriptions,function(subscription,key){
+			for(var key in subscriptions) {
 				subscriptions[key] = null;
-			});
+			}
 		}
 	},
 	
@@ -29,15 +18,26 @@ BBB.extend('events',{
 	 * supplied params.
 	 **/
 	fire:function(eventName,params) {
-		var subscriptions = BBB.events.subscriptions()[eventName];
-		
+
+		___.log("EVENT FIRED: "+eventName);
+
+		var subscriptions = ___.events.subscriptions()[eventName];
 		if(subscriptions) {
-			BBB.array.forEach(subscriptions,function(cb){
+			for(var key in subscriptions) {
+				var cb = subscriptions[key];
 				if(typeof cb == "function") {
 					cb(params);
 				}
-			});
+			}
 		}
+	},
+
+	once:function(eventName,cb) {
+		var onceCb = function(params) {
+			___.events.unsubscribe(eventName,cb);
+			cb(params);
+		}
+		this.subscribe(eventName,onceCb);
 	},
 	
 	/**
@@ -45,10 +45,10 @@ BBB.extend('events',{
 	 * all events.
 	 **/
 	subscriptions:function() {
-		if(!BBB.events.subscribers) {
-			BBB.events.subscribers = []
+		if(!___.events.subscribers) {
+			___.events.subscribers = []
 		}
-		return BBB.events.subscribers;
+		return ___.events.subscribers;
 	},
 	
 	/**
@@ -58,7 +58,7 @@ BBB.extend('events',{
 	 * is fired.
 	 **/
 	subscribe:function(eventName,cb) {
-		var subscriptions = BBB.events.subscriptions();
+		var subscriptions = ___.events.subscriptions();
 		
 		if(!subscriptions[eventName]) {
 			subscriptions[eventName] = [];
@@ -73,14 +73,15 @@ BBB.extend('events',{
 	 * as the callback to remove.
 	 **/
 	unsubscribe:function(eventName,cbToRemove) {
-		var subscriptions = BBB.events.subscriptions()[eventName];
+		var subscriptions = ___.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
-			BBB.array.forEach(subscriptions,function(cb,key) {
+			for(var key in subscriptions) {
+				var cb = subscriptions[key];
 				if(cb == cbToRemove) {
 					subscriptions[key] = null;
 				}
-			});
+			}
 		}
 	}
 });

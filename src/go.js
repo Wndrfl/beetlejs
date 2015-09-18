@@ -1,7 +1,7 @@
 /**
  * Init instructions for the framework
  **/
-BBB.run(function() {
+___.run(function() {
 	
 	// Tell the framework how to start up here
 
