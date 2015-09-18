@@ -1,155 +1,145 @@
-# Beetlejuice.js
+# Beetlejs.js
 
 ## Overview
 
-A simple and extensible Javascript framework starter kit by WNDRFL.
+A simple and extensible Javascript framework kernel.
 
 ## Why to use it
 
-Beetlejuice.js provides a strong and flexible "starter kit" for the development of a custom Javascript framework. Unlike jQuery, Beetlejuice.js isn't a library - instead its purpose is to make it easier to create rich networks of objects.
+Beetlejs.js provides a strong and flexible "starter kit" for the development of a custom Javascript framework. Unlike jQuery, Beetlejs.js isn't a library - instead its purpose is to make it easier to create rich networks of objects.
 
-Out of the box, Beetlejuice.js...
+Out of the box, Beetlejs.js...
 
-- is less than 10kb
+- is 3kb (minified)
 - provides an easy and extensible namespace with scaffolding for the creation of rich objects
 - supports simulated object "inheritance"
-- supports communication between objects via events
-- is packaged with common tools to make the creation of your robust objects easier
+- supports internal communication between objects via events
 
-In addition, Beetlejuice.js supports third party plugins, which opens the door to anything.
+In addition, Beetlejs.js supports third party plugins, which opens the door to anything.
 
 Schwing.
 
 ## Installation
-Installation of the Beetlejuice skeleton is a simple 3-step process.
+Installation of the Beetlejs skeleton is a simple 3-step process.
 
-1. Download a fresh copy of Beetlejuice
+1. Download a fresh copy of Beetlejs
 2. Extract into a public web directory
-3. Include the `beetlejuice.min.js` as a Javascript file in the header
+3. Include the `beetlejs.min.js` as a Javascript file
 
-<pre>&lt;script src="/path/to/beetlejuice.min.js"&gt;&lt;/script&gt;</pre>
+<pre>&lt;script src="/path/to/beetlejs.min.js"&gt;&lt;/script&gt;</pre>
 
-## Create your first object
+## Create your first extension
 
 Okay, this is going to be easy, watch:
 
-<pre>
-// Create the object
-___.namespace({
-	namespace: 'sampleObject',
-	construct: function() {
-
-		// this is the constructor area
-
-	}, 
-	proto: {
-
-		// this is the prototype area
-
+```javascript
+// Create the extension
+___.extend('myservice', {
+	
+	sayHello: function() {
+		alert('hallo squirreled');
 	}
+
 });
 
-// Use the object - schwing.
-var obj = new ___.sampleObject();
-</pre>
+// Now you can use the service - schwing.
+___.myservice.sayHello();
+```
 
-There you have it, your first Beetlejuice.js object. It's simple, took about 10 seconds to type, and is currently completely useless...so let's make it do something more:
+There you have it, your first Beetlejs.js extension. It's simple, and it took about 10 seconds to type.
 
-<pre>
-// Create the object
-___.namespace({
-	namespace: 'car',
-	construct: function(color) {
 
-		// this is the constructor area
-		this.color = color;
-		this.turnOn();
+## Create your first entity
 
-	}, 
-	proto: {
+In Beetlejs, an entity is a newable object that lives within the Beetlejs namespace, and is typically interacted with the same way a traditional model would be interacted with.
 
-		// this is the prototype area
-		turnOn:function() {
-			console.log('Starting engine...');
-		},
+```javascript
+// Create the entity
+___.entity('car',{
 
-		driveTo:function(place) {
-			console.log('Driving to: '+place);
-		}
+	// Constructor
+	initialize: function() {
+	
+	},
+	
+	turnOn:function() {
+		console.log('Starting engine...');
+	},
+
+	driveTo:function(place) {
+		console.log('Driving to: '+place);
 	}
+
 });
 
 // Use the object - schwing.
 var car = new ___.car('silver');
 car.driveTo('grocery store');
-</pre>
+```
 
-That's a little better. We now have an object that at least does something. Now, let me explain how it worked. 
+That's neat. We now have an object that does something. Let me explain how it worked:
 
-To create a "class" in Beetlejuice.js, you simply need to call the `___.namespace();` method. We did this in the first line.
+To create an `entity` in Beetlejs.js, you simply need to call the `___.entity();` method. We did this in the first line.
 
-The `___.namespace();` method accepts 3 arguments: the namespace, an optional construct function, and a prototype object:
+The `___.entity();` method accepts 3 arguments: the namespace, a prototype object, and the name of an object to inherit from (we didn't do this in the above example, and we'll explain this later):
 
-<pre>___.namespace({namespace,construct,prototype});</pre>
+```javascript
+___.entity({namespace,construct,prototype});
+```
 
-- <b>namespace:</b> <i>String</i> The namespace to be used for this "class" within Beetlejuice.js
-- <b>construct:</b> <i>Function (optional)</i> A function to be run upon instantiation
-- <b>prototype:</b> <i>Object</i> The main functionality of the "class" in JSON format
+- <b>namespace:</b> <i>String</i> The namespace to be used for this `entity` within Beetlejs.js
+- <b>prototype:</b> <i>Object</i> The main functionality of the `entity` in JSON format
+- <b>extend:</b> <i>String</i> The namespace of another `entity` to inherit from
 
-Next, we added a little magic to the `construct` function, to have it run some logic upon instantiation. <b>Note: two things happen</b> with `construct` functions:
+Next, we added a little magic to the prototype, to have it run some logic upon instantiation. This special black magic was the `initialize` function. This function is automatically called when the entity is instantiated, and is passed all the arguments that are passed to the constructor.
 
-1. they can be passed arguments when instantiating the object
-2. they will <b>automatically</b> be called as soon as the object is instantiated
-
-Finally, we added two methods to the `prototype` area. Unlike the `construct` function, these methods will be called only when they are specifically called.
+Finally, we added two more methods to the `prototype` area. Unlike the `initialize` function, these methods will be called only when they are specifically called.
 
 ## Inheritance
 
-Beetlejuice.js also supports psuedo-inheritence between objects, via `___.namespace();`. Here's how that might look, if we wanted to "subclass" the "class" we created above:
+Beetlejs.js also supports psuedo-inheritence between objects, via `___.entity();`. Here's how that might look, if we wanted to "subclass" the "class" we created above:
 
-<pre>
-// Create the "subclassed" object, notice the "extend" parameter
-___.namespace({
-	namespace: 'car',
-	extend: 'car.ferrari',
-	construct: function() {
+```javascript
+// Create the "subclassed" object, notice the "car" string passed as the third argument
+___.entity('car.ferrari',{
 
-		// This is the constructor area
+	// Constructor
+	initialize: function() {
+
 		this.radio=null;
 		this.blastTechno();
 
 	},
-	proto: {
 
-		// This is the prototype area
-		blastTechno:function() {
-			this.radio = setInterval(function() {
-				console.log('UNZ KATZ');
-			},1000);
-		},
+	// This is the prototype area
+	blastTechno:function() {
+		this.radio = setInterval(function() {
+			console.log('UNZ KATZ');
+		},1000);
+	},
 
-		stopTechno:function() {
-			clearInterval(this.radio);
-		}
+	stopTechno:function() {
+		clearInterval(this.radio);
 	}
-});
+
+},'car');
 
 var ferrari = new ___.car.ferrari('orange');
 this.turnOn();
 ferrari.driveTo('club'); 
 ferrari.blastTechno();
-</pre>
+```
 
-As you can see here, we wanted to create a similar, yet more specific class of `car`. This new "class" would want to share the same `prototype` that `___.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
+As you can see here, we wanted to create a similar, yet more specific version of `car`. This new `entity` would want to share the same `prototype` that `___.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
 
-To do this, we used `___.namespace();` to allow the Ferrari to inherit from `car`'s prototype.
+To do this, we used `___.entity();` to allow the Ferrari to inherit from `car`'s prototype.
 
-The only thing we had to do to do this was include an `extend` parameter when creating the new namespace. Easy huh?
+The only thing we had to do to do this was pass a third parameter with the name of the parent entity when creating the new namespace. Easy huh?
 
 Things to note about subclassing:
 
-1. if there are any duplicate methods or variables between the subclass and the parent, the subclass' method with <b>overwrite</b> the parent's method or variables.
+1. if there are any duplicate methods or variables between the subclass and the parent, the subclass' method will <b>overwrite</b> the parent's method or variables.
 2. the same applies with constructor methods - if a constructor method is supplied with the subclass, it will <b>overwrite</b> the parent's constructor (the parent's constructor will never be called).
-3. a good practice when naming a subclass is to append it to the name of the parent, separated by a dot ("plant.flower"), however it is not necessary (you could just do "flower").
+3. even though the methods of the parent will be overwritten, we make them available for use as this.prototype.__super__.<method>
 
-Schwing.
+As final note, it is a good practice when naming a subclass is to append it to the name of the parent, separated by a dot ("plant.flower"), however it is not necessary (you could just do "flower" or "this.is.a.ridiculously.stupid.namespace.flower").
