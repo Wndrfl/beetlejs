@@ -1,4 +1,4 @@
-___.extend('events',{
+module.exports = {
 	
 	/**
 	 * Clears ALL event listeners.
@@ -84,4 +84,4 @@ ___.extend('events',{
 			}
 		}
 	}
-});
+};
