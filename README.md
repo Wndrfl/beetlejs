@@ -1,4 +1,4 @@
-# Beetlejs.js
+# Beetlejs
 
 ## Overview
 
@@ -20,6 +20,20 @@ In addition, Beetlejs.js supports third party plugins, which opens the door to a
 Schwing.
 
 ## Installation
+
+### Install with npm
+You can use beetlejs as an npm module with:
+
+`npm install beetlejs`
+
+After installing, you can:
+
+```javascript
+require('beetlejs');
+var app = window.app = new ___();
+```
+
+### Install beetlejs.js as a file
 Installation of the Beetlejs skeleton is a simple 3-step process.
 
 1. Download a fresh copy of Beetlejs
@@ -34,7 +48,7 @@ Okay, this is going to be easy, watch:
 
 ```javascript
 // Create the extension
-___.extend('myservice', {
+app.extend('myservice', {
 	
 	sayHello: function() {
 		alert('hallo squirreled');
@@ -43,7 +57,7 @@ ___.extend('myservice', {
 });
 
 // Now you can use the service - schwing.
-___.myservice.sayHello();
+app.myservice.sayHello();
 ```
 
 There you have it, your first Beetlejs.js extension. It's simple, and it took about 10 seconds to type.
@@ -55,7 +69,7 @@ In Beetlejs, an entity is a newable object that lives within the Beetlejs namesp
 
 ```javascript
 // Create the entity
-___.entity('car',{
+app.entity('car',{
 
 	// Constructor
 	initialize: function() {
@@ -73,18 +87,18 @@ ___.entity('car',{
 });
 
 // Use the object - schwing.
-var car = new ___.car('silver');
+var car = new app.car('silver');
 car.driveTo('grocery store');
 ```
 
 That's neat. We now have an object that does something. Let me explain how it worked:
 
-To create an `entity` in Beetlejs.js, you simply need to call the `___.entity();` method. We did this in the first line.
+To create an `entity` in beetlejs.js, you simply need to call the `app.entity();` method. We did this in the first line.
 
-The `___.entity();` method accepts 3 arguments: the namespace, a prototype object, and the name of an object to inherit from (we didn't do this in the above example, and we'll explain this later):
+The `app.entity();` method accepts 3 arguments: the namespace, a prototype object, and the name of an object to inherit from (we didn't do this in the above example, and we'll explain this later):
 
 ```javascript
-___.entity({namespace,construct,prototype});
+app.entity({namespace,construct,prototype});
 ```
 
 - <b>namespace:</b> <i>String</i> The namespace to be used for this `entity` within Beetlejs.js
@@ -97,11 +111,11 @@ Finally, we added two more methods to the `prototype` area. Unlike the `initiali
 
 ## Inheritance
 
-Beetlejs.js also supports psuedo-inheritence between objects, via `___.entity();`. Here's how that might look, if we wanted to "subclass" the "class" we created above:
+Beetlejs.js also supports psuedo-inheritence between objects, via `app.entity();`. Here's how that might look, if we wanted to "subclass" the "class" we created above:
 
 ```javascript
 // Create the "subclassed" object, notice the "car" string passed as the third argument
-___.entity('car.ferrari',{
+app.entity('car.ferrari',{
 
 	// Constructor
 	initialize: function() {
@@ -124,15 +138,15 @@ ___.entity('car.ferrari',{
 
 },'car');
 
-var ferrari = new ___.car.ferrari('orange');
+var ferrari = new app.car.ferrari('orange');
 this.turnOn();
 ferrari.driveTo('club'); 
 ferrari.blastTechno();
 ```
 
-As you can see here, we wanted to create a similar, yet more specific version of `car`. This new `entity` would want to share the same `prototype` that `___.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
+As you can see here, we wanted to create a similar, yet more specific version of `car`. This new `entity` would want to share the same `prototype` that `app.car` has, but it also has special methods that it needs which are specific to this type of `car` only.
 
-To do this, we used `___.entity();` to allow the Ferrari to inherit from `car`'s prototype.
+To do this, we used `app.entity();` to allow the Ferrari to inherit from `car`'s prototype.
 
 The only thing we had to do to do this was pass a third parameter with the name of the parent entity when creating the new namespace. Easy huh?
 
