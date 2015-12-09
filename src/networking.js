@@ -1,4 +1,4 @@
-___.extend('networking',{
+module.exports = {
 
 	callbacks: {},
 
@@ -84,4 +84,4 @@ ___.extend('networking',{
 			}
 		};
 	}
-});
+};
