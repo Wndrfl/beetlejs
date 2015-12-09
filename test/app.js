@@ -1,4 +1,67 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Class = function() {};
+Class.extend = function(props) {
+
+	// extended class with the new prototype
+	var NewClass = function () {
+
+		// call the constructor
+		if(this.initialize) {
+			this.initialize.apply(this,arguments);
+		}
+
+		// call all constructor hooks
+		if(this._initHooks) {
+			this.callInitHooks();
+		}
+	};
+
+	// instantiate class without calling constructor
+	var F = function() {};
+	F.prototype = this.prototype;
+
+	var proto = new F();
+	proto.constructor = NewClass;
+
+	NewClass.prototype = proto;
+
+	//inherit parent's statics
+	for (var i in this) {
+		if (this.hasOwnProperty(i) && i !== 'prototype') {
+			NewClass[i] = this[i];
+		}
+	}
+
+	proto._id = ___.prototype.util.guid();
+	proto._initHooks = [];
+
+	___.prototype.util.copy(proto,props,true);
+
+	var parent = this;
+	// jshint camelcase: false
+	NewClass.prototype.__super__ = parent.prototype;
+
+	// add method for calling all hooks
+	proto.callInitHooks = function () {
+
+		if (this._initHooksCalled) { return; }
+
+		if(parent.prototype.callInitHooks) {
+			parent.prototype.callInitHooks.call(this);
+		}
+
+		this._initHooksCalled = true;
+
+		for (var i = 0, len = proto._initHooks.length; i < len; i++) {
+			proto._initHooks[i].call(this);
+		}
+	};
+
+	return NewClass;
+};
+
+module.exports = Class;
+},{}],2:[function(require,module,exports){
 module.exports = {
 	
 	/**
@@ -86,8 +149,21 @@ module.exports = {
 		}
 	}
 };
-},{}],2:[function(require,module,exports){
-window.___ = ___ = function() {
+},{}],3:[function(require,module,exports){
+window.___ = ___ = require('./kernel');
+
+___.prototype.Class = require('./class');
+___.prototype.events = require('./events');
+___.prototype.networking = require('./networking');
+___.prototype.util = require('./util');
+
+// convenience shortcuts
+___.prototype.log = ___.prototype.util.log;
+___.prototype.uniqid = ___.prototype.util.uniqid;
+
+module.exports = ___;
+},{"./class":1,"./events":2,"./kernel":4,"./networking":5,"./util":6}],4:[function(require,module,exports){
+module.exports = function() {
 
 	var VERSION = '0.5.1',
 		DEBUG = true;
@@ -122,85 +198,8 @@ window.___ = ___ = function() {
 	this.extend = function(namespace,object) {
 		return this._namespace(namespace,object);
 	}
-}
-
-/**
- * CLASS
- */
-
-___.prototype.Class = function() {
-	var self = this;
-}
-___.prototype.Class.extend = function(props) {
-
-	// extended class with the new prototype
-	var NewClass = function () {
-
-		// call the constructor
-		if(this.initialize) {
-			this.initialize.apply(this,arguments);
-		}
-
-		// call all constructor hooks
-		if(this._initHooks) {
-			this.callInitHooks();
-		}
-	};
-
-	// instantiate class without calling constructor
-	var F = function() {};
-	F.prototype = this.prototype;
-
-	var proto = new F();
-	proto.constructor = NewClass;
-
-	NewClass.prototype = proto;
-
-	//inherit parent's statics
-	for (var i in this) {
-		if (this.hasOwnProperty(i) && i !== 'prototype') {
-			NewClass[i] = this[i];
-		}
-	}
-	
-	proto._id = ___.prototype.util.guid();
-	proto._initHooks = [];
-
-	___.prototype.util.copy(proto,props,true);
-
-	var parent = this;
-	// jshint camelcase: false
-	NewClass.prototype.__super__ = parent.prototype;
-
-	// add method for calling all hooks
-	proto.callInitHooks = function () {
-
-		if (this._initHooksCalled) { return; }
-
-		if(parent.prototype.callInitHooks) {
-			parent.prototype.callInitHooks.call(this);
-		}
-
-		this._initHooksCalled = true;
-
-		for (var i = 0, len = proto._initHooks.length; i < len; i++) {
-			proto._initHooks[i].call(this);
-		}
-	};
-
-	return NewClass;
 };
-
-___.prototype.events = require('./events');
-___.prototype.networking = require('./networking');
-___.prototype.util = require('./util');
-
-// convenience shortcuts
-___.prototype.log = ___.prototype.util.log;
-___.prototype.uniqid = ___.prototype.util.uniqid;
-
-module.exports = ___;
-},{"./events":1,"./networking":3,"./util":4}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = {
 
 	callbacks: {},
@@ -288,7 +287,7 @@ module.exports = {
 		};
 	}
 };
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = {
 
 	/**
@@ -331,7 +330,7 @@ module.exports = {
 		return result;
 	},
 };
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 require('./../../src');
 
 var app = window.app = new ___();
@@ -350,4 +349,4 @@ app.entity('button',{
 		alert('ALERT!');
 	}
 });
-},{"./../../src":2}]},{},[5]);
+},{"./../../src":3}]},{},[7]);
