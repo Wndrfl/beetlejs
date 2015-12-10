@@ -3,6 +3,8 @@ module.exports = function() {
 	var VERSION = '0.5.1',
 		DEBUG = true;
 
+	this._bindables = [];
+
 	this._namespace = function(namespace,value) {
 
 		var node = this;
@@ -20,15 +22,56 @@ module.exports = function() {
 			
 			node = node[p];
 		}
-		
+
 		return node;
 	}
 
+	this.bindable = function(namespace,props,element,extend) {
+		var extendable = this.Class.extend({
+			bindTo: '',
+			els: [],
+
+			element: function(dom) {
+				this.dom = dom;
+			},
+
+			bindAll: function() {
+				var doms = document.querySelectorAll(this.bindTo);
+
+				for(i = 0; i < doms.length; ++i) {
+					this.els.push(this.make(doms[i]));
+				}
+			},
+
+			make: function(dom) {
+				var el = new this.element(dom);
+				
+				if(el.initialize) {
+					el.initialize();
+				}
+
+				return el;
+			},
+		});
+		var extended = extendable.extend(props);
+
+		if(element) {
+			for(key in element) {
+				extended.prototype.element.prototype[key] = element[key];
+			}
+		}
+
+		var bindable = this._namespace(namespace,extended);
+		
+		this._bindables[namespace] = bindable;
+
+		return bindable;
+	}
+	
 	this.bindAll = function() {
-		var node = this;
-		for(key in node) {
-			if(node.bindAll) {
-				node.bindAll();
+		for(key in this._bindables) {
+			if(this._bindables[key].prototype.bindAll) {
+				this._bindables[key].prototype.bindAll();
 			}
 		}
 	}
