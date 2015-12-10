@@ -24,6 +24,15 @@ module.exports = function() {
 		return node;
 	}
 
+	this.bindAll = function() {
+		var node = this;
+		for(key in node) {
+			if(node.bindAll) {
+				node.bindAll();
+			}
+		}
+	}
+
 	this.entity = function(namespace,props,extend) {
 		var extendable = extend ? this._namespace(extend) : this.Class;
 		var extended = extendable.extend(props);
