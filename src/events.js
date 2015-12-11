@@ -4,7 +4,7 @@ module.exports = {
 	 * Clears ALL event listeners.
 	 **/
 	clear:function(eventName) {
-		var subscriptions = ___.events.subscriptions()[eventName];
+		var subscriptions = ___.prototype.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
 			for(var key in subscriptions) {
@@ -19,9 +19,9 @@ module.exports = {
 	 **/
 	fire:function(eventName,params) {
 
-		___.log("EVENT FIRED: "+eventName);
+		___.prototype.log("EVENT FIRED: "+eventName);
 
-		var subscriptions = ___.events.subscriptions()[eventName];
+		var subscriptions = ___.prototype.events.subscriptions()[eventName];
 		if(subscriptions) {
 			for(var key in subscriptions) {
 				var cb = subscriptions[key];
@@ -34,7 +34,7 @@ module.exports = {
 
 	once:function(eventName,cb) {
 		var onceCb = function(params) {
-			___.events.unsubscribe(eventName,cb);
+			___.prototype.events.unsubscribe(eventName,cb);
 			cb(params);
 		}
 		this.subscribe(eventName,onceCb);
@@ -45,10 +45,10 @@ module.exports = {
 	 * all events.
 	 **/
 	subscriptions:function() {
-		if(!___.events.subscribers) {
-			___.events.subscribers = []
+		if(!___.prototype.events.subscribers) {
+			___.prototype.events.subscribers = []
 		}
-		return ___.events.subscribers;
+		return ___.prototype.events.subscribers;
 	},
 	
 	/**
@@ -58,7 +58,7 @@ module.exports = {
 	 * is fired.
 	 **/
 	subscribe:function(eventName,cb) {
-		var subscriptions = ___.events.subscriptions();
+		var subscriptions = ___.prototype.events.subscriptions();
 		
 		if(!subscriptions[eventName]) {
 			subscriptions[eventName] = [];
@@ -73,7 +73,7 @@ module.exports = {
 	 * as the callback to remove.
 	 **/
 	unsubscribe:function(eventName,cbToRemove) {
-		var subscriptions = ___.events.subscriptions()[eventName];
+		var subscriptions = ___.prototype.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
 			for(var key in subscriptions) {
