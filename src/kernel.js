@@ -1,9 +1,27 @@
- module.exports = function() {
+module.exports = function() {
 
 	var VERSION = '0.5.1',
 		DEBUG = true;
 
 	this._bindables = [];
+
+	this._makeBindable = function(props) {
+		var extendable = this.Class.extend({
+			bind: function() {
+				if(this._doBind) {
+					this._doBind.call(this);
+				}
+			},
+
+			_doBind:function() {
+				console.log('No _doBind function supplied.');
+			},
+		});
+
+		var bindable = extendable.extend(props);
+
+		return bindable;
+	}
 
 	this._namespace = function(namespace,value) {
 		var node = this;
@@ -25,93 +43,71 @@
 		return node;
 	}
 
-	this._makeBindable = function(bindTo,props,element,extend) {
-		var extendable = this.Class.extend({
-			selector: null,
-			els: [],
+	this.element = function(namespace,selector,factoryNamespace) {
 
+		var self = this;
+
+		var factory = this;
+		var tp = factoryNamespace.split('.');
+		for(i=0;i<tp.length;i++) {
+			
+			var p = tp[i];
+
+			if(!factory[p]) {
+				throw new Error(factoryNamespace+' does not exist.');
+			}
+			
+			factory = factory[p];
+		}
+
+		var props = {};
+		props.factory = factory;
+		props.selector = selector;
+		props._doBind = function() {
+			var dom;
+			dom = document.querySelector(this.selector);
+
+			var obj = this.factory.make(dom);
+			self._namespace(namespace,obj);
+		};
+
+		var bindable = this._makeBindable(props);
+
+		if(namespace) {
+			this._bindables[namespace] = bindable;
+		}
+	}
+	
+	this.factory = function(namespace,element) {
+
+		var self = this;
+
+		var factory = this.Class.extend({
+			els: [],
 			element: function(dom) {
 				this.dom = dom;
 			},
-
-			bind: function() {
-				if(!this.selector) {
-					return;
-				}
-				if(this.bindTo) {
-					this.bindTo.call(this,this.selector)
-				}
-			},
-
-			bindTo:function() {
-				console.log('No bindTo function supplied.');
-			},
-
 			make: function(dom) {
 				var el = new this.element(dom);
-				
 				if(el.initialize) {
 					el.initialize();
 				}
-
 				return el;
 			},
 		});
 
-		props.bindTo = bindTo;
-		var bindable = extendable.extend(props);
-
 		if(element) {
 			for(key in element) {
-				bindable.prototype.element.prototype[key] = element[key];
+				factory.prototype.element.prototype[key] = element[key];
 			}
 		}
-
-		return bindable;
-	}
-
-	this.bindable = function(namespace,props,element,extend) {
-		var bindable = this._makeBindable(function(el) {
-			var doms = [];
-			if(typeof el === 'string') {
-				doms = document.querySelectorAll(this.selector);
-			}else{
-				doms.push(el);
-			}
-
-			for(i = 0; i < doms.length; ++i) {
-				var obj = this.make(doms[i]);
-				this.els.push(obj);
-			}
-		},props,element,extend);
 
 		if(namespace) {
-			var bindable = this._namespace(namespace,bindable);
-			this._bindables[namespace] = bindable;
+			var factory = new factory();
+			this._namespace(namespace,factory);
 		}
 
-		return bindable;
-	}
-
-	this.singleton = function(namespace,props,element,extend) {
-		var self = this;
-		var bindable = this._makeBindable(function(el) {
-			var dom;
-			if(typeof el === 'string') {
-				dom = document.querySelector(this.selector);
-			}else{
-				dom = el;
-			}
-
-			var obj = this.make(dom);
-			self._namespace(namespace,obj);
-		},props,element,extend);
-
-		if(namespace) {
-			this._bindables[namespace] = bindable;
-		}
-
-		return bindable;
+		return factory;
 	}
 	
 	this.bindAll = function() {
