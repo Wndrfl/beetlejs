@@ -1,6 +1,6 @@
 {
   "name": "beetlejs",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A simple and extensible Javascript framework kernel from your friends at Wonderful Co.",
   "main": "./src/index.js",
   "directories": {

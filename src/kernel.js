@@ -1,6 +1,6 @@
 module.exports = function() {
 
-	var VERSION = '0.5.1',
+	var VERSION = '0.1.7',
 		DEBUG = true;
 
 	this._bindables = [];
