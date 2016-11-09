@@ -17,27 +17,33 @@ module.exports = {
 	 * Fires an event and passes each listener the
 	 * supplied params.
 	 **/
-	fire:function(eventName,params) {
+	fire:function(eventName,params,emittedByEl) {
 
 		___.prototype.log("EVENT FIRED: "+eventName);
 
 		var subscriptions = ___.prototype.events.subscriptions()[eventName];
 		if(subscriptions) {
 			for(var key in subscriptions) {
-				var cb = subscriptions[key];
+				var cb = subscriptions[key].cb;
+				var listenedToEl = subscriptions[key].el;
 				if(typeof cb == "function") {
-					cb(params);
+					console.log(listenedToEl);
+					console.log(emittedByEl);
+					console.log(listenedToEl === emittedByEl);
+					if(!listenedToEl || emittedByEl === listenedToEl) {
+						cb(params);
+					}
 				}
 			}
 		}
 	},
 
-	once:function(eventName,cb) {
+	once:function(eventName,cb,listenToEl) {
 		var onceCb = function(params) {
-			___.prototype.events.unsubscribe(eventName,cb);
+			___.prototype.events.unsubscribe(eventName,cb,listenToEl);
 			cb(params);
 		}
-		this.subscribe(eventName,onceCb);
+		this.subscribe(eventName,onceCb,listenToEl);
 	},
 	
 	/**
@@ -57,13 +63,16 @@ module.exports = {
 	 * This callback will be called when the event
 	 * is fired.
 	 **/
-	subscribe:function(eventName,cb) {
+	subscribe:function(eventName,cb,listenToEl) {
 		var subscriptions = ___.prototype.events.subscriptions();
 		
 		if(!subscriptions[eventName]) {
 			subscriptions[eventName] = [];
 		}
-		subscriptions[eventName].push(cb);
+		subscriptions[eventName].push({
+			el: listenToEl,
+			cb: cb
+		});
 	},
 	
 	/**
@@ -72,14 +81,17 @@ module.exports = {
 	 * The cbToRemove argument must be exactly the same
 	 * as the callback to remove.
 	 **/
-	unsubscribe:function(eventName,cbToRemove) {
+	unsubscribe:function(eventName,cbToRemove,listenToEl) {
 		var subscriptions = ___.prototype.events.subscriptions()[eventName];
 		
 		if(subscriptions) {
 			for(var key in subscriptions) {
-				var cb = subscriptions[key];
+				var cb = subscriptions[key].cb;
+				var listenedToEl = subscriptions[key].el;
 				if(cb == cbToRemove) {
-					subscriptions[key] = null;
+					if(!listenedToEl || listenedToEl === listenToEl) {
+						subscriptions[key] = null;
+					}
 				}
 			}
 		}

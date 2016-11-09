@@ -1,7 +1,7 @@
 window.___ = ___ = require('./kernel');
 
-___.prototype.Class = require('./class');
 ___.prototype.events = require('./events');
+___.prototype.Class = require('./class');
 ___.prototype.networking = require('./networking');
 ___.prototype.util = require('./util');
 

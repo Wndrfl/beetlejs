@@ -1,12 +1,47 @@
 {
-  "name": "beetlejs",
-  "version": "0.1.7",
-  "description": "A simple and extensible Javascript framework kernel from your friends at Wonderful Co.",
-  "main": "./src/index.js",
-  "directories": {
-    "test": "test"
+  "_args": [
+    [
+      "beetlejs@^0.1.6",
+      "/Users/johnniemunger/Projects/diggerslist/diggerslist-www/http"
+    ]
+  ],
+  "_from": "beetlejs@>=0.1.6 <0.2.0",
+  "_id": "beetlejs@0.1.7",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/beetlejs",
+  "_nodeVersion": "5.1.0",
+  "_npmUser": {
+    "email": "johnnie@letsgetwonderful.com",
+    "name": "johnnietheblack"
+  },
+  "_npmVersion": "3.4.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "beetlejs",
+    "raw": "beetlejs@^0.1.6",
+    "rawSpec": "^0.1.6",
+    "scope": null,
+    "spec": ">=0.1.6 <0.2.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/beetlejs/-/beetlejs-0.1.7.tgz",
+  "_shasum": "bd4e3b18e4a6e10b911541542fdf2001a69551cf",
+  "_shrinkwrap": null,
+  "_spec": "beetlejs@^0.1.6",
+  "_where": "/Users/johnniemunger/Projects/diggerslist/diggerslist-www/http",
+  "author": {
+    "email": "johnnie@letsgetwonderful.com",
+    "name": "Johnnie Munger"
+  },
+  "bugs": {
+    "url": "https://github.com/wndrfl/beetlejs/issues"
   },
   "dependencies": {},
+  "description": "A simple and extensible Javascript framework kernel from your friends at Wonderful Co.",
   "devDependencies": {
     "browserify": "~12.0.1",
     "gulp": "^3.8.8",
@@ -16,20 +51,35 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "directories": {
+    "test": "test"
   },
+  "dist": {
+    "shasum": "bd4e3b18e4a6e10b911541542fdf2001a69551cf",
+    "tarball": "https://registry.npmjs.org/beetlejs/-/beetlejs-0.1.7.tgz"
+  },
+  "gitHead": "3d4b8633d6d0608fa50afc71252dd5e4ac721313",
+  "homepage": "https://github.com/wndrfl/beetlejs#readme",
+  "keywords": [
+    "beetlejuice"
+  ],
+  "license": "MIT",
+  "main": "./src/index.js",
+  "maintainers": [
+    {
+      "email": "johnnie@letsgetwonderful.com",
+      "name": "johnnietheblack"
+    }
+  ],
+  "name": "beetlejs",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Wndrfl/beetlejs.git"
   },
-  "keywords": [
-    "beetlejuice"
-  ],
-  "author": "Johnnie Munger <johnnie@letsgetwonderful.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wndrfl/beetlejs/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/wndrfl/beetlejs#readme"
+  "version": "0.1.7"
 }

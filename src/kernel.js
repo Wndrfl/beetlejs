@@ -43,6 +43,27 @@ module.exports = function() {
 		return node;
 	}
 
+	this._prepEntity = function(entity, namespace) {
+
+		entity['_id'] = ___.prototype.util.guid();
+
+		entity['_namespace'] = namespace ? namespace : entity['_id'];
+
+		entity['_events'] = {
+			buildEventName: function(eventName) {
+				return entity._namespace ? entity._namespace+'.'+eventName : eventName;
+			}
+		}
+		
+		entity._events['fire'] = function(eventName,params) {
+			___.prototype.events.fire(entity._events.buildEventName(eventName),params,entity._id);
+		}
+
+		entity._events['on'] = function (eventName,cb) {
+			___.prototype.events.subscribe(entity._events.buildEventName(eventName),cb,entity._id);
+		}
+	}
+
 	this.element = function(namespace,selector,factoryNamespace) {
 
 		var self = this;
@@ -89,6 +110,9 @@ module.exports = function() {
 			},
 			make: function(dom) {
 				var el = new this.element(dom);
+
+				self._prepEntity(el,namespace);
+
 				if(el.initialize) {
 					el.initialize();
 				}
@@ -119,12 +143,21 @@ module.exports = function() {
 	}
 
 	this.entity = function(namespace,props,extend) {
+		var self = this;
 		var extendable = extend ? this._namespace(extend) : this.Class;
-		var extended = extendable.extend(props);
+		var extended = extendable.extend(___.prototype.util.copy({
+			_initHooks : [
+				function() {
+					self._prepEntity(this,namespace);
+				}
+			],
+		},props,true));
+
 		return this._namespace(namespace,extended);
 	}
 
 	this.extend = function(namespace,object) {
+		var self = this;
 		return this._namespace(namespace,object);
 	}
 };

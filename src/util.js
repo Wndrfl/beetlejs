@@ -24,6 +24,7 @@ module.exports = {
 		if(arguments.length > 1) {
 			data = Array.prototype.slice.call(arguments);
 		}
+		console.log(data);
 		if(___.DEBUG) console.log(data);
 	},
 
